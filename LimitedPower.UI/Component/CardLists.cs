@@ -44,9 +44,13 @@ namespace LimitedPower.UI.Component
                 77491, 77519, 77492, 77512, 77505, 77498, 77517, 77514, 77537, 77525, 77540,
             };
             var cards = Cards;
+            if (!IncludeSpecialCards)
+            {
+                cards = cards.Where(c => c.SetCode == "stx").ToList();
+            }
             if (ShowFilter && ColorFilter != ColorWheel.None)
             {
-                cards = Cards.Where(c => ColorFilter.HasFlag(c.ColorIdentity)).ToList();
+                cards = cards.Where(c => ColorFilter.HasFlag(c.ColorIdentity)).ToList();
             }
             cards = cards
                 .Where(o => !exceptions.Contains(o.ArenaId) && o.CardFaces.Any(cf => cf.TypeLine.Contains("Instant") || cf.OracleText.ToLower().Contains("flash")))

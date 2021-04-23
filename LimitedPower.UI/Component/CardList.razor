@@ -14,6 +14,8 @@
                 @* ReSharper disable once CssBrowserCompatibility *@
                 <span style="opacity: @(ColorFilter.HasFlag(f.Key) ? 1 : 0.25); cursor: pointer" @onclick="() => Filter(f.Key)">@f.Value</span>
             }
+            @* ReSharper disable once CssBrowserCompatibility *@
+            <span style="opacity: @(IncludeSpecialCards ? 1 : 0.25); cursor: pointer" @onclick="IncludeSpecial">🌟</span>
         </div>
     </div>
 }
@@ -41,6 +43,12 @@
 
 @code {
 
+    public void IncludeSpecial()
+    {
+        IncludeSpecialCards = !IncludeSpecialCards;
+        SortCards();
+    }
+
     public void Filter(ColorWheel c)
     {
         if (ColorFilter.HasFlag(c))
@@ -57,6 +65,7 @@
     protected List<Card> Cards { get; set; } = new();
     protected Dictionary<string, List<Card>> CardCategories = new();
     protected ColorWheel ColorFilter { get; set; }
+    protected bool IncludeSpecialCards { get; set; } = false;
 
     private bool _isSorted = false;
 
