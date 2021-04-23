@@ -1,3 +1,5 @@
-﻿@page "/"
+﻿@page "/{setcode}"
+@inherits PageBase
 
-<CardList Title="Tier List"></CardList>
+<CardList SetCode="@SetCode" Title="Tier List"></CardList>
+

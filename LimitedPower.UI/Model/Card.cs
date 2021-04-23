@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using LimitedPower.ViewModel;
 
 namespace LimitedPower.UI.Model
 {
@@ -10,7 +11,7 @@ namespace LimitedPower.UI.Model
         public string CardFaceName => !ShowBack ? CardFaces[0].Name : CardFaces[1].Name;
         public bool IsDFC => CardFaces?.Count > 1;
         public string ImageUrl => $"img/stx/{ArenaId}-{(ShowBack ? 1 : 0)}.png";
-        public double TotalRating => !Ratings.Any() ? 0.0 : Ratings.Average(r => r.Rating);
+        public double TotalRating => !Ratings.Any() ? 0.0 : Ratings.Where(o => o.ReviewSource != ReviewSource.SeventeenLands).Average(r => r.Rating);
 
         public string Grade => GetGrade();
 

@@ -1,6 +1,6 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
+<div class="page" @ref="rootRef" tabindex="0" @onkeydown="HandleKeyDown">
     <div class="sidebar">
         <NavMenu />
     </div>
@@ -19,3 +19,37 @@
         </div>
     </div>
 </div>
+
+@code
+{
+    public string LoL { get; set; }
+    private ElementReference rootRef;
+    private string pressedKey;
+    private List<string> konamiCode = new() { "arrowup", "arrowup", "arrowdown", "arrowdown", "arrowleft", "arrowright", "arrowleft", "arrowright", "b", "a" };
+    List<string> sequence = new List<string>();
+
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        sequence.Add(e.Key.ToLower());
+        for(var i = 0; i < sequence.Count; i++)
+        {
+            if (sequence[i] != konamiCode[i])
+            {
+                sequence.Clear();
+                break;
+            }
+        }
+        if (sequence.Count == konamiCode.Count)
+        {
+
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await rootRef.FocusAsync();
+        }
+    }
+}

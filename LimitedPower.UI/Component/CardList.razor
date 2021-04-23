@@ -71,15 +71,18 @@
 
     private Dictionary<ColorWheel, string> _filterChoices = new()
     {
-            { ColorWheel.White, "⚖️" },
-            { ColorWheel.Blue, "💧" },
-            { ColorWheel.Black, "💀" },
-            { ColorWheel.Red, "🔥" },
-            { ColorWheel.Green, "🌳" },
-        };
+        { ColorWheel.White, "⚖️" },
+        { ColorWheel.Blue, "💧" },
+        { ColorWheel.Black, "💀" },
+        { ColorWheel.Red, "🔥" },
+        { ColorWheel.Green, "🌳" },
+    };
 
     [Parameter]
     public string Title { get; set; }
+
+    [Parameter]
+    public string SetCode { get; set; }
 
     [Parameter]
     public bool ShowFilter { get; set; } = false;

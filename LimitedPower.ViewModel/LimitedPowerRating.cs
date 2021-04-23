@@ -32,7 +32,8 @@ namespace LimitedPower.ViewModel
         InfiniteMythicEditionM0bieus,
         InfiniteMythicEditionScottynada,
         Deathsie,
-        Drifter
+        Drifter,
+        SeventeenLands,
         // ReSharper restore InconsistentNaming
     }
 }
