@@ -1,0 +1,96 @@
+﻿@using LimitedPower.UI.Services
+@using LimitedPower.ViewModel
+@using Card = LimitedPower.UI.Model.Card
+
+@inject ICardService CardService
+
+@if (ShowFilter)
+{
+    <div class="row">
+        <div class="col text-center" style="font-size: xx-large">
+
+            @foreach (var f in _filterChoices)
+            {
+                @* ReSharper disable once CssBrowserCompatibility *@
+                <span style="opacity: @(ColorFilter.HasFlag(f.Key) ? 1 : 0.25); cursor: pointer" @onclick="() => Filter(f.Key)">@f.Value</span>
+            }
+        </div>
+    </div>
+}
+
+<div class="row">
+    @foreach (var category in GetCardCategories())
+    {
+        <div class="col-sm-12 text-center"><p><b>@category.Key</b></p></div>
+        @foreach (var card in category.Value)
+        {
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 text-center" style="position: relative">
+                <img src="@card.ImageUrl" class="img-fluid" />
+                @if (card.IsDFC)
+                {
+                    <img @onclick="@(_ => card.Flip())"
+                         src="@(card.ShowBack ? "img/switch-off.png" : "img/switch-on.png")"
+                         style="margin-top: 20%; margin-left: -25%; cursor: pointer; position: absolute;" />
+                }
+                <div>@card.CardFaceName</div>
+                <div>@card.Grade (@Math.Round(card.TotalRating, 2))</div>
+            </div>
+        }
+    }
+</div>
+
+@code {
+
+    public void Filter(ColorWheel c)
+    {
+        if (ColorFilter.HasFlag(c))
+        {
+            ColorFilter &= ~c;
+        }
+        else
+        {
+            ColorFilter |= c;
+        }
+        SortCards();
+    }
+
+    protected List<Card> Cards { get; set; } = new();
+    protected Dictionary<string, List<Card>> CardCategories = new();
+    protected ColorWheel ColorFilter { get; set; }
+
+    private bool _isSorted = false;
+
+    private Dictionary<ColorWheel, string> _filterChoices = new()
+    {
+            { ColorWheel.White, "⚖️" },
+            { ColorWheel.Blue, "💧" },
+            { ColorWheel.Black, "💀" },
+            { ColorWheel.Red, "🔥" },
+            { ColorWheel.Green, "🌳" },
+        };
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public bool ShowFilter { get; set; } = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        Cards = await Task.Run(() => CardService.GetCards());
+        SortCards();
+        _isSorted = true;
+    }
+
+    private Dictionary<string, List<Card>> GetCardCategories()
+    {
+        if (!_isSorted) return new Dictionary<string, List<Card>>();
+        return CardCategories;
+    }
+
+    protected virtual void SortCards()
+    {
+        CardCategories.Add("Tier List", Cards.OrderByDescending(c => c.TotalRating).ToList());
+    }
+}
