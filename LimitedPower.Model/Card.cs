@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LimitedPower.ViewModel
+namespace LimitedPower.Model
 {
     public class Card
     {
@@ -11,7 +11,7 @@ namespace LimitedPower.ViewModel
         public List<string> Keywords;
         public RarityStatus Rarity { get; set; }
         public ColorWheel ColorIdentity { get; set; }
-        public ColorWheel ProducedMana { get; set; }
+        public List<string> ProducedMana { get; set; }
         public List<CardFace> CardFaces { get; set; } = new List<CardFace>();
 
         public List<LimitedPowerRating> Ratings = new List<LimitedPowerRating>();

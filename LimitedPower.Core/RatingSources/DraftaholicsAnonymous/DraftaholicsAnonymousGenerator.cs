@@ -1,25 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using LimitedPower.ViewModel;
+using LimitedPower.Model;
 using Newtonsoft.Json;
 
 namespace LimitedPower.Core.RatingSources.DraftaholicsAnonymous
 {
-    public class DraftaholicsAnonymousGenerator : RatingGeneratorBase
+    public class DraftaholicsAnonymousGenerator : RatingGeneratorBase<int>
     {
-        public DraftaholicsAnonymousGenerator(string basePath, string set) : base(basePath, set)
+        protected override ReviewContributor[] ReviewContributors { get; set; } = { ReviewContributor.DraftaholicsAnonymous };
+
+        private int _minRating;
+        private int _maxRating;
+
+        public DraftaholicsAnonymousGenerator(string basePath, string set, Dictionary<string, string> cardNameSubstitutions) : base(basePath, set, cardNameSubstitutions) { }
+
+        protected override List<RawRating<int>> GetRawRatings()
         {
-        }
-
-        public override void RateCards()
-        {
-            LoadFile();
-
-            // review source setup
-            var reviewSource = ReviewSource.DraftaholicsAnonymous;
-
             // load reviews from website
             string doc;
             using (var client = new System.Net.WebClient()) // WebClient class inherits IDisposable
@@ -29,47 +26,26 @@ namespace LimitedPower.Core.RatingSources.DraftaholicsAnonymous
             var cardRatings = JsonConvert.DeserializeObject<DraftaholicsAnonymousRoot>(doc)?.Data;
             if (cardRatings == null) throw new Exception("ratings are null");
 
-            // setup rating calculation
-            var calc = new RatingCalculator(cardRatings.OrderByDescending(r => r.Elo).Select(e => (double)e.Elo).ToList());
-
-            // remove old ratings
-            Cards.ForEach(c => c.Ratings.RemoveAll(r => r.ReviewSource == reviewSource));
-
-            var subs = new Dictionary<string, string>()
+            // populate list
+            var result = new List<RawRating<int>>();
+            foreach (var r in cardRatings)
             {
-                // correct, wrong
-                {"Mage Hunters' Onslaught", "Mage Hunter's Onslaught"},
-                {"Plumb the Forbidden", "Plumb the Forgotten"},
-                {"Academic Dispute", "Academic Debate"},
-            };
-
-            // add new ratings
-            foreach (var card in Cards)
-            {
-                // setup search term
-                var searchTerm = card.Name;
-                // remove backside of card name
-                if (searchTerm.Contains("//")) searchTerm = searchTerm.Substring(0, searchTerm.IndexOf("//", StringComparison.Ordinal) - 1);
-                // substitute if any
-                if (subs.ContainsKey(searchTerm)) searchTerm = subs[searchTerm];
-
-                var cardRating = cardRatings.FirstOrDefault(c => c.Name == searchTerm);
-                if (cardRating == null)
+                result.Add(new RawRating<int>
                 {
-                    Fails.Add(new RatingFailure(reviewSource, card.ArenaId));
-                }
-                else
-                {
-                    card.Ratings.Add(new LimitedPowerRating(calc.Calculate(cardRating.Elo), string.Empty, reviewSource));
-                }
+                    ReviewContributor = ReviewContributor.DraftaholicsAnonymous,
+                    RawValue = r.Elo,
+                    CardName = r.Name
+                });
             }
 
-            if (Fails.Any())
-            {
-                File.WriteAllText(JsonConvert.SerializeObject(Fails), Path.Combine(BasePath, $"{reviewSource}-fails.json"));
-            }
+            // initialize rating calculator private fields
+            var orderedResults = cardRatings.OrderByDescending(x => x.Elo).ToList();
+            _minRating = orderedResults.Last().Elo;
+            _maxRating = orderedResults.First().Elo;
 
-            WriteFile();
+            return result;
         }
+
+        protected override IRatingCalculator<int> CreateRatingCalculator() => new IntegerCalculator(_minRating, _maxRating);
     }
 }

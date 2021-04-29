@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using LimitedPower.Model;
 using LimitedPower.UI.Extensions;
-using LimitedPower.ViewModel;
 
 namespace LimitedPower.UI.Component
 {

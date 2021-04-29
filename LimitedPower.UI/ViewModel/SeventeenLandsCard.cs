@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace LimitedPower.UI.Model
+namespace LimitedPower.UI.ViewModel
 {
     public class SeventeenLandsCard
     {

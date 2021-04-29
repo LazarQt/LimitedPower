@@ -7,7 +7,7 @@ namespace LimitedPower.UI.Services
 {
     public interface ICardService
     {
-        Task<List<Model.Card>> GetCards();
+        Task<List<ViewModel.Card>> GetCards();
     }
     public class CardService : ICardService
     {
@@ -18,14 +18,14 @@ namespace LimitedPower.UI.Services
             Http = http;
         }
 
-        private List<Model.Card> _cards = new();
+        private List<ViewModel.Card> _cards = new();
         private bool _isInitialized = false;
 
-        public async Task<List<Model.Card>> GetCards()
+        public async Task<List<ViewModel.Card>> GetCards()
         {
             if (!_isInitialized)
             {
-                _cards = JsonConvert.DeserializeObject<List<Model.Card>>(await Http.GetStringAsync("rating-data/stx.json"));
+                _cards = JsonConvert.DeserializeObject<List<ViewModel.Card>>(await Http.GetStringAsync("rating-data/stx.json"));
                 //var sl = JsonConvert.DeserializeObject<List<SeventeenLandsCard>>(await Http.GetStringAsync("rating-data/stx-sl.json"));
                 //var calc = new RatingCalculator(cardRatings.OrderByDescending(r => r.MyRating).Select(e => e.MyRating).ToList());
             }

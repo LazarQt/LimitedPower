@@ -9,6 +9,12 @@ namespace LimitedPower.ScryfallLib
     public class ScryfallApi
     {
         readonly RestClient _client = new RestClient("https://api.scryfall.com");
+        private Dictionary<string, object> Parameters { get; set; }
+
+        public ScryfallApi(Dictionary<string, object> parameters = null)
+        {
+            Parameters = parameters ?? new Dictionary<string, object>();
+        }
 
         private CardsSearch PerformCardsSearch(string setSearchUri)
         {
@@ -49,7 +55,9 @@ namespace LimitedPower.ScryfallLib
             {
                 foreach (var sourceCard in cardsSearch.Data)
                 {
-                    if (Convert.ToInt32(sourceCard.CollectorNumber) > set.PrintedSize)
+                    var printedSize = set.PrintedSize;
+                    if (Parameters.ContainsKey("PrintedSize")) printedSize = Convert.ToInt32(Parameters["PrintedSize"]);
+                    if (Convert.ToInt32(sourceCard.CollectorNumber) > printedSize)
                     {
                         continue;
                     }

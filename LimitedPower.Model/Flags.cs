@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LimitedPower.ViewModel
+namespace LimitedPower.Model
 {
     public static class FlagExtensions
     {

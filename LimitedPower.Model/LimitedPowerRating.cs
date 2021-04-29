@@ -1,17 +1,17 @@
-namespace LimitedPower.ViewModel
+namespace LimitedPower.Model
 {
     public class LimitedPowerRating
     {
         public double Rating { get; set; }
         public string Description { get; set; }
         public RatingType RatingType { get; set; }
-        public ReviewSource ReviewSource { get; set; }
+        public ReviewContributor ReviewContributor { get; set; }
 
-        public LimitedPowerRating(double rating, string description, ReviewSource reviewSource, RatingType ratingType = RatingType.Main)
+        public LimitedPowerRating(double rating, string description, ReviewContributor reviewContributor, RatingType ratingType = RatingType.Main)
         {
             Rating = rating;
             Description = description;
-            ReviewSource = reviewSource;
+            ReviewContributor = reviewContributor;
             RatingType = ratingType;
         }
     }
@@ -23,7 +23,7 @@ namespace LimitedPower.ViewModel
         Lesson
     }
 
-    public enum ReviewSource
+    public enum ReviewContributor
     {
         // ReSharper disable InconsistentNaming
         DraftaholicsAnonymous,

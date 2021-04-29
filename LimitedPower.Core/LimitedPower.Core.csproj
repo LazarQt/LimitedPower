@@ -6,12 +6,11 @@
 
   <ItemGroup>
     <PackageReference Include="Google.Apis.Sheets.v4" Version="1.51.0.2272" />
-    <PackageReference Include="TinyPNG" Version="3.3.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LimitedPower.Model\LimitedPower.Model.csproj" />
     <ProjectReference Include="..\LimitedPower.ScryfallLib\LimitedPower.ScryfallLib.csproj" />
-    <ProjectReference Include="..\LimitedPower.ViewModel\LimitedPower.ViewModel.csproj" />
   </ItemGroup>
 
   <ItemGroup>

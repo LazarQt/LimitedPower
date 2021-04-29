@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.23.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\LimitedPower.Core\LimitedPower.Core.csproj" />
   </ItemGroup>
 

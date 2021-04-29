@@ -424,5 +424,6 @@ token.json/
 .idea/
 
 #project specific
+.batches/credentials.json
 LimitedPower.Core/credentials.json
 LimitedPower.UI/wwwroot/img/stx/

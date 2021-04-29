@@ -1,11 +1,10 @@
-﻿namespace LimitedPower.ViewModel
+﻿namespace LimitedPower.Model
 {
     public class CardFace
     {
         public string Name;
         public string TypeLine;
-        public ColorWheel Colors;
-        public double ManaValue;
+        public string ManaCost;
         public string OracleText;
         public int Power;
         public int Toughness;

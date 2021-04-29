@@ -1,0 +1,1 @@
+..\LimitedPower.Console\bin\Debug\net5.0\LimitedPower.Console.exe LoadCards khm C:\dev\out\ {"ScryfallApi":{"PrintedSize":285}}

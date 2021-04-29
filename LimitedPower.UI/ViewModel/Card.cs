@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using LimitedPower.ViewModel;
+using LimitedPower.Model;
 
-namespace LimitedPower.UI.Model
+namespace LimitedPower.UI.ViewModel
 {
-    public class Card : ViewModel.Card
+    public class Card : Model.Card
     {
         public bool ShowBack { get; set; }
 

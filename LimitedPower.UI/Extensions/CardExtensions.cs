@@ -1,4 +1,4 @@
-﻿using LimitedPower.ViewModel;
+﻿using LimitedPower.Model;
 
 namespace LimitedPower.UI.Extensions
 {
