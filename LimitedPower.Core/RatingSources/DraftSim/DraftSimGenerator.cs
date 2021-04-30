@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LimitedPower.Core.Extensions;
 using LimitedPower.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -30,6 +29,16 @@ namespace LimitedPower.Core.RatingSources.DraftSim
             {
                 cardRatings.AddRange(RetrieveDraftSimData(url));
             }
+
+            // SPECIAL CASE: remove some lands, might implement ignore list later
+            var ignore = new List<string> {
+                "Snow-Covered_Plains_2",
+                "Snow-Covered_Island_2",
+                "Snow-Covered_Swamp_2",
+                "Snow-Covered_Mountain_2",
+                "Snow-Covered_Forest_2",
+                 };
+            cardRatings = cardRatings.Where(c => !ignore.Contains(c.Name)).ToList();
 
             // populate list
             var result = new List<RawRating<double>>();
@@ -89,7 +98,5 @@ namespace LimitedPower.Core.RatingSources.DraftSim
         }
 
         protected override IRatingCalculator<double> CreateRatingCalculator() => new DoubleCalculator(_minRating, _maxRating);
-
-        protected override string GetSearchTerm(string term) => term.StripBacksideName().Replace(' ', '_');
     }
 }

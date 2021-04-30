@@ -37,12 +37,13 @@
     ]
   },
   {
-    "GeneratorName": "DrifterGenerator",
+    "GeneratorName": "MtgaZoneGenerator",
     "CardNameSubstitutions": {},
     "Args": [
       "1KGjmlYSENE5M3lNCKwvtmMnDw_Bq9d9Hw5nk1_12o0w",
-      "Drifter",
-      "A35:B382"
+      "MtgaZone",
+      "A36:B64,A66:B81,A83:B109,A111:B199,A201:B228,A230:B245,A247:B274,A276:B289,A291:B318,A320:B382",
+      "Drifter:1"
     ]
   }
 ]

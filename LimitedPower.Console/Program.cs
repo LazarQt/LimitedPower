@@ -6,8 +6,8 @@ using LimitedPower.Core;
 using LimitedPower.Core.RatingSources.Deathsie;
 using LimitedPower.Core.RatingSources.DraftaholicsAnonymous;
 using LimitedPower.Core.RatingSources.DraftSim;
-using LimitedPower.Core.RatingSources.Drifter;
 using LimitedPower.Core.RatingSources.InfiniteMythicEdition;
+using LimitedPower.Core.RatingSources.MtgaZone;
 using LimitedPower.ScryfallLib;
 using Newtonsoft.Json;
 
@@ -15,8 +15,15 @@ namespace LimitedPower.Console
 {
     class Program
     {
+        // ReSharper disable once RedundantAssignment
         static void Main(string[] args)
         {
+#if DEBUG
+            //args = new[] {Commands.LoadRatings, "stx,sta",@"C:\dev\out", File.ReadAllText("sample-configuration-stxsta.json")};
+            //args = new[] {Commands.LoadRatings, "khm",@"C:\dev\out", File.ReadAllText("sample-configuration-khm.json")};
+            //args = new[] {Commands.LoadImages, "stx,sta",@"C:\dev\out"};
+            args = new[] { Commands.LoadImages, "khm", @"C:\dev\out", "{\"ScryfallApi\":{\"PrintedSize\":285}}" };
+#endif
             var command = args.GetParam(0);
             var sets = args.GetParam(1).Split(',');
             var primarySet = sets.First();
@@ -34,12 +41,22 @@ namespace LimitedPower.Console
                 var customParameters = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, object>>>(args.GetParam(3));
                 var imgDirectory = Path.Combine(root, primarySet);
                 if (!Directory.Exists(imgDirectory)) Directory.CreateDirectory(imgDirectory);
-                var optimizer = new ImageOptimizer();
+                //var optimizer = new ImageOptimizer();
                 foreach (var img in new AssetGenerator(new ScryfallApi(customParameters?["ScryfallApi"])).DownloadSetImages(sets))
                 {
+                    // save
                     var file = Path.Combine(imgDirectory, img.Key);
                     File.WriteAllBytes(file, img.Value);
-                    optimizer.LosslessCompress(file);
+
+                    // resize
+                    using var image = new MagickImage(file);
+                    image.Resize(new Percentage(50));
+
+                    // save again
+                    image.Write(file);
+
+                    // compress. edit: actually compression on this level of jpg does NOTHING it seems
+                    //optimizer.LosslessCompress(file);
                 }
             }
 
@@ -61,8 +78,8 @@ namespace LimitedPower.Console
                     if (p.GeneratorName == nameof(DeathsieGenerator))
                         new DeathsieGenerator(root, primarySet, p.CardNameSubstitutions, p.Args).Process();
 
-                    if (p.GeneratorName == nameof(DrifterGenerator))
-                        new DrifterGenerator(root, primarySet, p.CardNameSubstitutions, p.Args).Process();
+                    if (p.GeneratorName == nameof(MtgaZoneGenerator))
+                        new MtgaZoneGenerator(root, primarySet, p.CardNameSubstitutions, p.Args).Process();
                 }
             }
         }

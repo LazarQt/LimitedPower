@@ -33,7 +33,12 @@ namespace LimitedPower.Core.RatingSources
 
         protected abstract List<RawRating<T>> GetRawRatings();
 
-        protected virtual string GetSearchTerm(string term) => term.StripBacksideName();
+        protected virtual string ModifySearchTerm(string term) => term.StripBacksideName();
+
+        protected virtual string SanitizeReviewCard(string cardName) => cardName
+            .Trim()
+            .Replace('_', ' ')
+            .Replace("’", "'");
 
         public void Process()
         {
@@ -49,17 +54,22 @@ namespace LimitedPower.Core.RatingSources
 
             // get raw ratings
             var rawRatings = GetRawRatings();
+            // trim excess whitespace
+            rawRatings.ForEach(x => x.CardName = SanitizeReviewCard(x.CardName));
 
             // add new ratings
             var ratingCalculator = CreateRatingCalculator();
             foreach (var card in cards)
             {
-                // setup search term
-                var searchTerm = GetSearchTerm(card.Name);
+                // setup search term + remove white spaces
+                var searchTerm = ModifySearchTerm(card.Name);
                 // substitute if any
-                if (CardNameSubstitutions.ContainsKey(searchTerm)) searchTerm = CardNameSubstitutions[searchTerm];
+                if (CardNameSubstitutions.ContainsKey(searchTerm))
+                {
+                    searchTerm = CardNameSubstitutions[searchTerm];
+                }
 
-                var cardRatings = rawRatings.Where(c => c.CardName == searchTerm).ToList();
+                var cardRatings = rawRatings.Where(c => c.CardName.ToLower() == searchTerm.ToLower()).ToList();
                 foreach (var cardRating in cardRatings)
                 {
                     card.Ratings.Add(new LimitedPowerRating(ratingCalculator.Calculate(cardRating.RawValue), string.Empty, cardRating.ReviewContributor));
@@ -67,7 +77,9 @@ namespace LimitedPower.Core.RatingSources
 
                 if (cardRatings.Count != ReviewContributors.Length)
                 {
-                    File.AppendAllText(Path.Combine(BasePath, $"{Set}-missing.json"), $"Missing ratings from {ReviewContributors.Select(r => r)} for card {searchTerm}");
+                    File.AppendAllText(Path.Combine(BasePath, $"{Set}-missing.txt"),
+                        $"Missing ratings from {ReviewContributors.Aggregate(string.Empty, (current, c) => current + c)} for card {searchTerm}"
+                        + Environment.NewLine);
                 }
             }
 

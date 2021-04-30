@@ -33,6 +33,7 @@ namespace LimitedPower.Model
         InfiniteMythicEditionScottynada,
         Deathsie,
         Drifter,
+        Raszero,
         SeventeenLands,
         // ReSharper restore InconsistentNaming
     }
