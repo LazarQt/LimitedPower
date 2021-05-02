@@ -1,6 +1,6 @@
 ﻿@using LimitedPower.UI.Services
-@using LimitedPower.ViewModel
-@using Card = LimitedPower.UI.Model.Card
+@using Card = LimitedPower.UI.ViewModel.Card;
+@using LimitedPower.Model
 
 @inject ICardService CardService
 
@@ -28,6 +28,12 @@
         {
             <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 text-center" style="position: relative">
                 <img src="@card.ImageUrl" class="img-fluid" />
+                @if (card.Name == "Blood Researcher") // easter egg :^)
+                {
+                    <img @onclick="@(_ => NavigateToEasterEgg())"
+                         src="@(card.ShowBack ? "img/switch-off.png" : "img/switch-on.png")"
+                         style="margin-top: 20%; margin-left: -25%; cursor: pointer; position: absolute;" />
+                }
                 @if (card.IsDFC)
                 {
                     <img @onclick="@(_ => card.Flip())"
@@ -35,13 +41,23 @@
                          style="margin-top: 20%; margin-left: -25%; cursor: pointer; position: absolute;" />
                 }
                 <div>@card.CardFaceName</div>
-                <div>@card.Grade (@Math.Round(card.TotalRating, 2))</div>
+                <div>@card.Grade(Session.LiveData) (@Math.Round(card.TotalRating(Session.LiveData), 2))</div>
             </div>
         }
     }
 </div>
 
 @code {
+
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+    private void NavigateToEasterEgg()
+    {
+        Session.SelectedSet = "ita";
+        NavigationManager.NavigateTo("tierlist/ita");
+    }
 
     public void IncludeSpecial()
     {
@@ -81,13 +97,19 @@
     [Parameter]
     public string Title { get; set; }
 
+    [Inject]
+    public UserSession Session { get; set; }
+
+    [Parameter]
+    public string SetCode { get; set; }
+
     [Parameter]
     public bool ShowFilter { get; set; } = false;
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        Cards = await Task.Run(() => CardService.GetCards());
+        Cards = await Task.Run(() => CardService.GetCards(Session.SelectedSet));
         SortCards();
         _isSorted = true;
     }
@@ -100,6 +122,6 @@
 
     protected virtual void SortCards()
     {
-        CardCategories.Add("Tier List", Cards.OrderByDescending(c => c.TotalRating).ToList());
+        CardCategories.Add("Tier List", Cards.OrderByDescending(c => c.TotalRating(Session.LiveData)).ToList());
     }
 }

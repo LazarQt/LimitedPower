@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -7,8 +8,9 @@ namespace LimitedPower.UI.Services
 {
     public interface ICardService
     {
-        Task<List<Model.Card>> GetCards();
+        Task<List<ViewModel.Card>> GetCards(string s);
     }
+
     public class CardService : ICardService
     {
         public HttpClient Http { get; set; }
@@ -18,14 +20,26 @@ namespace LimitedPower.UI.Services
             Http = http;
         }
 
-        private List<Model.Card> _cards = new();
-        private bool _isInitialized = false;
+        private List<ViewModel.Card> _cards = new();
+        private bool _isInitialized;
+        private string _setLoaded = string.Empty;
 
-        public async Task<List<Model.Card>> GetCards()
+        public async Task<List<ViewModel.Card>> GetCards(string setcode)
         {
-            if (!_isInitialized)
+            if (!_isInitialized || _setLoaded != setcode)
             {
-                _cards = JsonConvert.DeserializeObject<List<Model.Card>>(await Http.GetStringAsync("rating-data/stx.json"));
+                string x = "";
+                try
+                {
+                    x = await Http.GetStringAsync($"rating-data/{setcode}.json");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                _cards = JsonConvert.DeserializeObject<List<ViewModel.Card>>(x);
+                _isInitialized = true;
+                _setLoaded = setcode;
             }
             return _cards;
         }

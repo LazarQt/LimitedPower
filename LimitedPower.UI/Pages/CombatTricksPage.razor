@@ -1,3 +1,4 @@
-﻿@page "/combattrickspage"
+﻿@page "/combattrickspage/{setcode}"
+@inherits PageBase
 
-<CombatTricks ShowFilter="true" Title="Combat Tricks"></CombatTricks>
+<CombatTricks SetCode="@SetCode" ShowFilter="true" Title="Combat Tricks"></CombatTricks>

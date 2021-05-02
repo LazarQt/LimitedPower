@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "LimitedPower.Console": {
+      "commandName": "Project",
+      "commandLineArgs": ""
+    }
+  }
+}

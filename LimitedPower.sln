@@ -7,17 +7,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LimitedPower.Console", "Lim
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LimitedPower.ScryfallLib", "LimitedPower.ScryfallLib\LimitedPower.ScryfallLib.csproj", "{C2CA3B45-EB11-4F17-952B-50BC8D1EE009}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LimitedPower.ViewModel", "LimitedPower.ViewModel\LimitedPower.ViewModel.csproj", "{EA7340A3-0BB5-426F-B062-C673DE24996F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LimitedPower.Core", "LimitedPower.Core\LimitedPower.Core.csproj", "{4926758B-0163-402C-9369-1C17A1595696}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".documents", ".documents", "{D989E8F4-F8BC-49F4-AF5B-0B1212B717FB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".batches", ".batches", "{D989E8F4-F8BC-49F4-AF5B-0B1212B717FB}"
 	ProjectSection(SolutionItems) = preProject
-		logs1.txt = logs1.txt
-		logs2.txt = logs2.txt
+		.batches\LoadCardsKhm.bat = .batches\LoadCardsKhm.bat
+		.batches\LoadCardsStx.bat = .batches\LoadCardsStx.bat
+		.batches\LoadImagesKhm.bat = .batches\LoadImagesKhm.bat
+		.batches\LoadImagesStx.bat = .batches\LoadImagesStx.bat
+		.batches\LoadRatingsKhm.bat = .batches\LoadRatingsKhm.bat
+		.batches\LoadRatingsStx.bat = .batches\LoadRatingsStx.bat
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LimitedPower.UI", "LimitedPower.UI\LimitedPower.UI.csproj", "{B21B4172-5E5D-49FB-AEBA-E9755E57469E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LimitedPower.Model", "LimitedPower.Model\LimitedPower.Model.csproj", "{AA06521A-BB79-42AF-868A-6D213E68DD63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +37,6 @@ Global
 		{C2CA3B45-EB11-4F17-952B-50BC8D1EE009}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2CA3B45-EB11-4F17-952B-50BC8D1EE009}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2CA3B45-EB11-4F17-952B-50BC8D1EE009}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EA7340A3-0BB5-426F-B062-C673DE24996F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA7340A3-0BB5-426F-B062-C673DE24996F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA7340A3-0BB5-426F-B062-C673DE24996F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA7340A3-0BB5-426F-B062-C673DE24996F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4926758B-0163-402C-9369-1C17A1595696}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4926758B-0163-402C-9369-1C17A1595696}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4926758B-0163-402C-9369-1C17A1595696}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +45,10 @@ Global
 		{B21B4172-5E5D-49FB-AEBA-E9755E57469E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B21B4172-5E5D-49FB-AEBA-E9755E57469E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B21B4172-5E5D-49FB-AEBA-E9755E57469E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA06521A-BB79-42AF-868A-6D213E68DD63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA06521A-BB79-42AF-868A-6D213E68DD63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA06521A-BB79-42AF-868A-6D213E68DD63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA06521A-BB79-42AF-868A-6D213E68DD63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,67 +1,63 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using LimitedPower.ViewModel;
+using LimitedPower.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace LimitedPower.Core.RatingSources.DraftSim
 {
-    public class DraftSimGenerator : RatingGeneratorBase
+    public class DraftSimGenerator : RatingGeneratorBase<double>
     {
-        private string[] Urls { get; set; }
+        protected override ReviewContributor[] ReviewContributors { get; set; } = { ReviewContributor.DraftSim };
 
-        public DraftSimGenerator(string basePath, string set, string[] urls) : base(basePath, set)
+        private string[] UrlParts { get; set; }
+        private double _minRating;
+        private double _maxRating;
+
+        public DraftSimGenerator(string basePath, string set, Dictionary<string, string> cardNameSubstitutions,
+            string[] args) : base(basePath, set, cardNameSubstitutions)
         {
-            Urls = urls;
+            UrlParts = args[0].Split(',');
         }
 
-        public override void RateCards()
+        protected override List<RawRating<double>> GetRawRatings()
         {
-            LoadFile();
-
-            // review source setup
-            var reviewSource = ReviewSource.DraftSim;
-
             // load reviews from website
             List<DraftSimData> cardRatings = new List<DraftSimData>();
-            foreach (var url in Urls)
+            foreach (var url in UrlParts)
             {
                 cardRatings.AddRange(RetrieveDraftSimData(url));
             }
 
-            // setup rating calculation
-            var calc = new RatingCalculator(cardRatings.OrderByDescending(r => r.MyRating).Select(e => e.MyRating).ToList());
+            // SPECIAL CASE: remove some lands, might implement ignore list later
+            var ignore = new List<string> {
+                "Snow-Covered_Plains_2",
+                "Snow-Covered_Island_2",
+                "Snow-Covered_Swamp_2",
+                "Snow-Covered_Mountain_2",
+                "Snow-Covered_Forest_2",
+                 };
+            cardRatings = cardRatings.Where(c => !ignore.Contains(c.Name)).ToList();
 
-            // remove old ratings
-            Cards.ForEach(c => c.Ratings.RemoveAll(r => r.ReviewSource == reviewSource));
-
-            // add new ratings
-            foreach (var card in Cards)
+            // populate list
+            var result = new List<RawRating<double>>();
+            foreach (var r in cardRatings)
             {
-                // setup search term
-                var searchTerm = card.Name.Replace(' ', '_');
-                // remove backside of card name
-                if (searchTerm.Contains("//")) searchTerm = searchTerm.Substring(0, searchTerm.IndexOf("//", StringComparison.Ordinal) - 1);
-
-                var cardRating = cardRatings.FirstOrDefault(c => c.Name == searchTerm);
-                if (cardRating == null)
+                result.Add(new RawRating<double>
                 {
-                    Fails.Add(new RatingFailure(reviewSource, card.ArenaId));
-                }
-                else
-                {
-                    card.Ratings.Add(new LimitedPowerRating(calc.Calculate(cardRating.MyRating), string.Empty, reviewSource));
-                }
+                    ReviewContributor = ReviewContributor.DraftSim,
+                    RawValue = r.MyRating,
+                    CardName = r.Name
+                });
             }
 
-            if (Fails.Any())
-            {
-                File.WriteAllText(JsonConvert.SerializeObject(Fails), Path.Combine(BasePath, $"{reviewSource}-fails.json"));
-            }
+            // initialize rating calculator private fields
+            var orderedResults = cardRatings.OrderByDescending(x => x.MyRating).ToList();
+            _minRating = orderedResults.Last().MyRating;
+            _maxRating = orderedResults.First().MyRating;
 
-            WriteFile();
+            return result;
         }
 
         private List<DraftSimData> RetrieveDraftSimData(string url)
@@ -77,6 +73,7 @@ namespace LimitedPower.Core.RatingSources.DraftSim
             var strippedDoc = doc.Substring(start, end - start + 1);
             var replace = new[]
             {
+                // ReSharper disable StringLiteralTypo
                 "name",
                 "castingcost1",
                 "castingcost2",
@@ -88,18 +85,18 @@ namespace LimitedPower.Core.RatingSources.DraftSim
                 "colors",
                 "creaturesort",
                 "colorsort"
+                // ReSharper restore StringLiteralTypo
             };
             foreach (var r in replace)
             {
                 strippedDoc = strippedDoc.Replace($"{r}:", $"\"{r}\":");
             }
 
-            var json = JArray.Parse(strippedDoc).ToString();
-
-
-            var cardRatings = JsonConvert.DeserializeObject<List<DraftSimData>>(json);
+            var cardRatings = JsonConvert.DeserializeObject<List<DraftSimData>>(JArray.Parse(strippedDoc).ToString());
             if (cardRatings == null) throw new Exception("ratings are null");
             return cardRatings;
         }
+
+        protected override IRatingCalculator<double> CreateRatingCalculator() => new DoubleCalculator(_minRating, _maxRating);
     }
 }

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace LimitedPower.Core.RatingSources.DraftaholicsAnonymous
 {
-    public class Card
+    public class DaCard
     {
         [JsonProperty("id")]
         public int Id { get; set; }
@@ -60,7 +60,7 @@ namespace LimitedPower.Core.RatingSources.DraftaholicsAnonymous
     public class DraftaholicsAnonymousRoot
     {
         [JsonProperty("data")]
-        public List<Card> Data { get; set; }
+        public List<DaCard> Data { get; set; }
     }
 
 

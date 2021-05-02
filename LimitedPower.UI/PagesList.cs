@@ -6,7 +6,7 @@ namespace LimitedPower.UI
     {
         public static List<Page> Pages = new()
         {
-            new("Tier List", "/", "badge"),
+            new("Tier List", "tierlist", "badge"),
             new("Best commons", "topcommonspage", "layers"),
             new("Combat Tricks", "combattrickspage", "bolt"),
         };

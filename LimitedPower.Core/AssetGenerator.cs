@@ -1,28 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+using LimitedPower.Model;
 using LimitedPower.ScryfallLib;
-using LimitedPower.ViewModel;
-using Newtonsoft.Json;
 using RestSharp;
-using TinyPng;
 
 namespace LimitedPower.Core
 {
     public class AssetGenerator
     {
-        private readonly ScryfallApi _scryfallApi = new();
-        private readonly TinyPngClient _tinyPng = new("Mmq8dtn4Q9YCsz5zMHncy202h2Lpnjsh");
+        private ScryfallApi ScryfallApi { get; set; }
 
-        public void GenerateSetJson(string[] setCodes)
+        public AssetGenerator(ScryfallApi scryfallApi)
+        {
+            ScryfallApi = scryfallApi;
+        }
+
+        public List<Card> GenerateSetJson(string[] setCodes)
         {
             var result = new List<Card>();
 
-            var sourceCards = _scryfallApi.GetSourceCards(setCodes);
+            var sourceCards = ScryfallApi.GetSourceCards(setCodes);
             foreach (var sourceCard in sourceCards)
             {
-                var card = new Card()
+                var card = new Card
                 {
                     CollectorNumber = sourceCard.CollectorNumber,
                     ColorIdentity = sourceCard.ColorIdentity.CreateColorWheel(),
@@ -31,17 +31,16 @@ namespace LimitedPower.Core
                     SetCode = sourceCard.Set,
                     ArenaId = sourceCard.ArenaId,
                     Keywords = sourceCard.Keywords,
-                    ProducedMana = sourceCard.ProducedMana?.CreateColorWheel() ?? ColorWheel.None
+                    ProducedMana = sourceCard.ProducedMana ?? new List<string>()
                 };
 
                 if (sourceCard.CardFaces != null)
                 {
                     foreach (var cardFace in sourceCard.CardFaces)
                     {
-                        card.CardFaces.Add(new CardFace()
+                        card.CardFaces.Add(new CardFace
                         {
-                            Colors = cardFace.Colors.CreateColorWheel(),
-                            ManaValue = cardFace.ManaCost.GetManaValue(),
+                            ManaCost = cardFace.ManaCost,
                             Name = cardFace.Name,
                             OracleText = cardFace.OracleText,
                             Power = Convert.ToInt32(cardFace.Power),
@@ -52,10 +51,9 @@ namespace LimitedPower.Core
                 }
                 else
                 {
-                    card.CardFaces.Add(new CardFace()
+                    card.CardFaces.Add(new CardFace
                     {
-                        Colors = sourceCard.ColorIdentity.CreateColorWheel(),
-                        ManaValue = sourceCard.Cmc,
+                        ManaCost = sourceCard.ManaCost,
                         Name = sourceCard.Name,
                         OracleText = sourceCard.OracleText,
                         Power = Convert.ToInt32(sourceCard.Power),
@@ -67,35 +65,31 @@ namespace LimitedPower.Core
                 result.Add(card);
             }
 
-            File.WriteAllText(Path.Combine(Environment.CurrentDirectory, $"{setCodes.First()}.json"), JsonConvert.SerializeObject(result));
+            return result;
         }
 
-        public void DownloadSetImages(string[] setCodes)
+        public Dictionary<string, byte[]> DownloadSetImages(string[] setCodes)
         {
-            var sourceCards = _scryfallApi.GetSourceCards(setCodes);
+            var sourceCards = ScryfallApi.GetSourceCards(setCodes);
+            var results = new Dictionary<string, byte[]>();
             foreach (var sourceCard in sourceCards)
             {
                 if (sourceCard.CardFaces != null)
                 {
                     for (var i = 0; i < sourceCard.CardFaces.Count; i++)
                     {
-                        DownloadImage(sourceCard.CardFaces[i].ImageUris.Png, $"{sourceCard.ArenaId}-{i}.png", setCodes.First());
+                        results.Add($"{sourceCard.ArenaId}-{i}.jpg", GetImageBytes(sourceCard.CardFaces[i].ImageUris.Normal));
                     }
                 }
                 else
                 {
-                    DownloadImage(sourceCard.ImageUris.Png, $"{sourceCard.ArenaId}-0.png", setCodes.First());
+                    results.Add($"{sourceCard.ArenaId}-0.jpg", GetImageBytes(sourceCard.ImageUris.Normal));
                 }
             }
 
+            return results;
         }
 
-        private async void DownloadImage(string imgUrl, string fileName, string setcode)
-        {
-            var imgDirectory = Path.Combine(Environment.CurrentDirectory, setcode);
-            if (!Directory.Exists(imgDirectory)) Directory.CreateDirectory(imgDirectory);
-            var imageStream = new RestClient(imgUrl).DownloadData(new RestRequest("#", Method.GET));
-            await File.WriteAllBytesAsync(Path.Combine(imgDirectory, fileName), await _tinyPng.Compress(imageStream).Download().GetImageByteData());
-        }
+        private byte[] GetImageBytes(string imgUrl) => new RestClient(imgUrl).DownloadData(new RestRequest("#", Method.GET));
     }
 }

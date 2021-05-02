@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LimitedPower.ViewModel\LimitedPower.ViewModel.csproj" />
+    <ProjectReference Include="..\LimitedPower.Model\LimitedPower.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>
