@@ -1,16 +1,23 @@
-﻿@inherits LayoutComponentBase
+﻿@using LimitedPower.UI.Services
+@inherits LayoutComponentBase
 
-<div class="page" @ref="rootRef" tabindex="0" @onkeydown="HandleKeyDown">
+<div class="page">
     <div class="sidebar">
         <NavMenu />
     </div>
 
     <div class="main">
         <div class="top-row px-4">
-            <span style="font-size:xx-small">
-                Wizards of the Coast, Magic: The Gathering, and their logos are trademarks of Wizards of the Coast LLC.
-                © 2021 All rights reserved. This website is not affiliated with Wizards of the Coast LLC.
-            </span>
+            <div class="col text-center" style="font-size: xx-large">
+                <span style="cursor: pointer" @onclick="() => SetNew(Sets.Stx)">🏫</span>
+                <span style="cursor: pointer" @onclick="() => SetNew(Sets.Khm)">🪓</span>
+                <span>|</span>
+                <span style="cursor: pointer" @onclick="() => Session.LiveData = !Session.LiveData">Live?: @Session.LiveData</span>
+            </div>
+            @*<span style="font-size:xx-small">
+                    Wizards of the Coast, Magic: The Gathering, and their logos are trademarks of Wizards of the Coast LLC.
+                    © 2021 All rights reserved. This website is not affiliated with Wizards of the Coast LLC.
+                </span>*@
             <a href="https://www.instagram.com/lazarqt/" target="_blank" class="ml-md-auto">Author 📸</a>
         </div>
 
@@ -20,36 +27,23 @@
     </div>
 </div>
 
-@code
-{
-    public string LoL { get; set; }
-    private ElementReference rootRef;
-    private string pressedKey;
-    private List<string> konamiCode = new() { "arrowup", "arrowup", "arrowdown", "arrowdown", "arrowleft", "arrowright", "arrowleft", "arrowright", "b", "a" };
-    List<string> sequence = new List<string>();
+@code {
+    [Inject]
+    public UserSession Session { get; set; }
 
-    private void HandleKeyDown(KeyboardEventArgs e)
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+    [Inject]
+    public ICardService CardService { get; set; }
+
+    private void SetNew(string s)
     {
-        sequence.Add(e.Key.ToLower());
-        for(var i = 0; i < sequence.Count; i++)
-        {
-            if (sequence[i] != konamiCode[i])
-            {
-                sequence.Clear();
-                break;
-            }
-        }
-        if (sequence.Count == konamiCode.Count)
-        {
 
-        }
-    }
+        //CardService.GetCards(s);
+        Session.SelectedSet = s;
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await rootRef.FocusAsync();
-        }
+        NavigationManager.NavigateTo($"tierlist/{s}");
+
     }
 }

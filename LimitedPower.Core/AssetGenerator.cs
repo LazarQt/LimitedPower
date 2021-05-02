@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using LimitedPower.Model;
 using LimitedPower.ScryfallLib;
-using Newtonsoft.Json;
 using RestSharp;
 
 namespace LimitedPower.Core

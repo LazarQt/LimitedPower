@@ -4,14 +4,16 @@ using System.Globalization;
 using System.Linq;
 using LimitedPower.Model;
 using LimitedPower.UI.Extensions;
+using Microsoft.AspNetCore.Components;
 
 namespace LimitedPower.UI.Component
 {
     public class TopCommons : CardList
     {
+
         protected override void SortCards()
         {
-            var sortedByRating = Cards.Where(x => x.Rarity == RarityStatus.Common).OrderByDescending(c => c.TotalRating).ToList();
+            var sortedByRating = Cards.Where(x => x.Rarity == RarityStatus.Common).OrderByDescending(c => c.TotalRating(Session.LiveData)).ToList();
             var identities = new List<ColorWheel>()
             {
                 ColorWheel.White,
@@ -54,10 +56,10 @@ namespace LimitedPower.UI.Component
             }
             cards = cards
                 .Where(o => !exceptions.Contains(o.ArenaId) && o.CardFaces.Any(cf => cf.TypeLine.Contains("Instant") || cf.OracleText.ToLower().Contains("flash")))
-                .OrderBy(c => c.CardFaces[0].ManaValue)
+                .OrderBy(c => c.ManaValue)
                 .ThenBy(x => Convert.ToInt32(x.CollectorNumber))
                 .ToList();
-            var cGroups = cards.GroupBy(x => x.CardFaces[0].ManaValue);
+            var cGroups = cards.GroupBy(x => x.ManaValue);
             foreach (var group in cGroups)
             {
                 CardCategories.Add(group.Key.ToString(CultureInfo.InvariantCulture), group.ToList());

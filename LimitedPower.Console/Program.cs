@@ -8,6 +8,7 @@ using LimitedPower.Core.RatingSources.DraftaholicsAnonymous;
 using LimitedPower.Core.RatingSources.DraftSim;
 using LimitedPower.Core.RatingSources.InfiniteMythicEdition;
 using LimitedPower.Core.RatingSources.MtgaZone;
+using LimitedPower.Core.RatingSources.SeventeenLands;
 using LimitedPower.ScryfallLib;
 using Newtonsoft.Json;
 
@@ -19,10 +20,10 @@ namespace LimitedPower.Console
         static void Main(string[] args)
         {
 #if DEBUG
-            //args = new[] {Commands.LoadRatings, "stx,sta",@"C:\dev\out", File.ReadAllText("sample-configuration-stxsta.json")};
+            //args = new[] { Commands.LoadRatings, "stx,sta", @"C:\dev\out", File.ReadAllText("sample-configuration-stxsta.json") };
             //args = new[] {Commands.LoadRatings, "khm",@"C:\dev\out", File.ReadAllText("sample-configuration-khm.json")};
             //args = new[] {Commands.LoadImages, "stx,sta",@"C:\dev\out"};
-            args = new[] { Commands.LoadImages, "khm", @"C:\dev\out", "{\"ScryfallApi\":{\"PrintedSize\":285}}" };
+            //args = new[] { Commands.LoadImages, "khm", @"C:\dev\out", "{\"ScryfallApi\":{\"PrintedSize\":285}}" };
 #endif
             var command = args.GetParam(0);
             var sets = args.GetParam(1).Split(',');
@@ -41,7 +42,6 @@ namespace LimitedPower.Console
                 var customParameters = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, object>>>(args.GetParam(3));
                 var imgDirectory = Path.Combine(root, primarySet);
                 if (!Directory.Exists(imgDirectory)) Directory.CreateDirectory(imgDirectory);
-                //var optimizer = new ImageOptimizer();
                 foreach (var img in new AssetGenerator(new ScryfallApi(customParameters?["ScryfallApi"])).DownloadSetImages(sets))
                 {
                     // save
@@ -54,9 +54,6 @@ namespace LimitedPower.Console
 
                     // save again
                     image.Write(file);
-
-                    // compress. edit: actually compression on this level of jpg does NOTHING it seems
-                    //optimizer.LosslessCompress(file);
                 }
             }
 
@@ -66,6 +63,9 @@ namespace LimitedPower.Console
                 if (parserConfigurations == null) return;
                 foreach (var p in parserConfigurations)
                 {
+                    if (p.GeneratorName == nameof(SeventeenLandsGenerator))
+                        new SeventeenLandsGenerator(root, primarySet, p.CardNameSubstitutions).Process();
+
                     if (p.GeneratorName == nameof(DraftaholicsAnonymousGenerator))
                         new DraftaholicsAnonymousGenerator(root, primarySet, p.CardNameSubstitutions).Process();
 

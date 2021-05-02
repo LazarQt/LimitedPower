@@ -1,5 +1,13 @@
-﻿@page "/{setcode}"
-@inherits PageBase
+﻿@page "/"
+@inherits ComponentBase
 
-<CardList SetCode="@SetCode" Title="Tier List"></CardList>
+@code{
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
 
+    protected override void OnInitialized()
+    {
+        NavigationManager.NavigateTo("/tierlist/stx", true);
+    }
+
+}

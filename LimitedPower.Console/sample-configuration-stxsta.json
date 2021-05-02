@@ -1,5 +1,10 @@
 [
   {
+    "GeneratorName": "SeventeenLandsGenerator",
+    "CardNameSubstitutions": {},
+    "Args": []
+  },
+  {
     "GeneratorName": "DraftaholicsAnonymousGenerator",
     "CardNameSubstitutions": {
       "Mage Hunters' Onslaught": "Mage Hunter's Onslaught",
