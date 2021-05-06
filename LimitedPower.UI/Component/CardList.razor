@@ -87,12 +87,12 @@
 
     private Dictionary<ColorWheel, string> _filterChoices = new()
     {
-            { ColorWheel.White, "⚖️" },
-            { ColorWheel.Blue, "💧" },
-            { ColorWheel.Black, "💀" },
-            { ColorWheel.Red, "🔥" },
-            { ColorWheel.Green, "🌳" },
-        };
+        { ColorWheel.White, "⚖️" },
+        { ColorWheel.Blue, "💧" },
+        { ColorWheel.Black, "💀" },
+        { ColorWheel.Red, "🔥" },
+        { ColorWheel.Green, "🌳" },
+    };
 
     [Parameter]
     public string Title { get; set; }
@@ -114,14 +114,9 @@
         _isSorted = true;
     }
 
-    private Dictionary<string, List<Card>> GetCardCategories()
-    {
-        if (!_isSorted) return new Dictionary<string, List<Card>>();
-        return CardCategories;
-    }
 
-    protected virtual void SortCards()
-    {
-        CardCategories.Add("Tier List", Cards.OrderByDescending(c => c.TotalRating(Session.LiveData)).ToList());
-    }
+
+    protected virtual void SortCards() => CardCategories.Add("Tier List", Cards.OrderByDescending(c => c.TotalRating(Session.LiveData)).ToList());
+
+    private Dictionary<string, List<Card>> GetCardCategories() => !_isSorted ? new Dictionary<string, List<Card>>() : CardCategories;
 }

@@ -9,6 +9,7 @@ namespace LimitedPower.UI
             new("Tier List", "tierlist", "badge"),
             new("Best commons", "topcommonspage", "layers"),
             new("Combat Tricks", "combattrickspage", "bolt"),
+            new("Deck Builder", "deckwizard", "star"),
         };
     }
 

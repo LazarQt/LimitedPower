@@ -12,7 +12,7 @@
                 <span style="cursor: pointer" @onclick="() => SetNew(Sets.Stx)">🏫</span>
                 <span style="cursor: pointer" @onclick="() => SetNew(Sets.Khm)">🪓</span>
                 <span>|</span>
-                <span style="cursor: pointer" @onclick="() => Session.LiveData = !Session.LiveData">Live?: @Session.LiveData</span>
+                <span style="cursor: pointer" @onclick="() => Ch()">Live?: @Session.LiveData</span>
             </div>
             @*<span style="font-size:xx-small">
                     Wizards of the Coast, Magic: The Gathering, and their logos are trademarks of Wizards of the Coast LLC.
@@ -36,6 +36,12 @@
 
     [Inject]
     public ICardService CardService { get; set; }
+
+    private void Ch()
+    {
+        Session.LiveData = !Session.LiveData;
+        NavigationManager.NavigateTo($"tierlist/{Session.SelectedSet}");
+    }
 
     private void SetNew(string s)
     {
