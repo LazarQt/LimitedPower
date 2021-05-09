@@ -10,6 +10,7 @@
 <h3>Upload Files</h3>
 
 <input @bind="@_rawInput" />
+<textarea @bind="@_rawInput2"></textarea>
 <button @onclick="BuildDeck">Generate deck</button>
 <span style="cursor: pointer" @onclick="() => SwitchLb()">Lessons only in sideboard?: @LessonSideboardOnly</span>
 <span style="cursor: pointer" @onclick="() => SwitchTri()">Tricolor?: @IncludeTri</span>
@@ -26,7 +27,16 @@
 
     }*@
 
-
+<style>
+    .inlineRating {
+        position: relative;
+        top: -300px;
+        font-weight: bold;
+        font-size: 24px;
+        color: white;
+        -webkit-text-stroke: 1px black;
+    }
+</style>
 
 <div class="row">
     @foreach (var deck in possibleDecks)
@@ -42,8 +52,11 @@
                 @for (var j = 0; j < row.Count; j++)
                 {
                     var card = row[j];
+                    <div style="position: relative; top: -@(j*240)px">
+                        <img src="@card.ImageUrl" class="img-fluid" style="z-index: 1"  />
+                        <span class="inlineRating" style="z-index: 999">@Math.Round(card.TotalRating(true),2)</span>
+                    </div>
 
-                    <img src="@card.ImageUrl" class="img-fluid" style="position: relative; top: -@(j*240)px" />
 
                 }
             </div>
@@ -73,6 +86,9 @@
     public bool LessonSideboardOnly = true;
     public bool IncludeTri = false;
 
+    [Inject]
+    public HttpClient Http { get; set; }
+
     public class Deck
     {
         public List<Card> Cards { get; set; }
@@ -98,25 +114,47 @@
     List<Deck> possibleDecks = new();
 
     readonly List<Card> _cardPool = new List<Card>();
-    private string _rawInput = "{\"id\":504,\"payload\":{\"Id\":\"9fffb079-44c9-43fd-b689-95dddb3b5e4c\",\"InternalEventName\":\"Sealed_STX_20210415\",\"PlayerId\":null,\"EventType\":0,\"EventSubType\":0,\"ModuleInstanceData\":{\"HasPaidEntry\":\"Gem\",\"SealedPoolGenerated\":true,\"HasGranted\":true},\"CurrentEventState\":\"PreMatch\",\"CurrentModule\":\"DeckSelect\",\"CardPool\":[76634,76649,76404,76592,76647,76590,76429,76657,76470,76450,76632,76438,76484,76520,77503,76663,76468,76651,76412,76627,76401,76411,76466,76443,76395,76596,76418,76669,76451,77524,76660,76517,76681,76404,76442,76470,76496,76530,76405,76396,76658,76615,76655,76600,77533,76486,76454,76404,76538,76574,76659,76647,76645,76517,76393,76635,76628,76439,76420,77523,76676,76649,76517,76593,76631,76466,76679,76590,76429,76619,76658,76447,76481,76540,77482,76461,76468,76681,76616,76509,76514,76427,76623,76534,76644,76532,76507,76522,76656,77502],\"CourseDeck\":null,\"PreviousOpponents\":[]}}";
+    private string _rawInput = "";
+    private string _rawInput2 = "";
     List<Card> _cards = new List<Card>();
 
-    public void BuildDeck()
+    public async void BuildDeck()
     {
         possibleDecks.Clear();
         _cardPool.Clear();
-        if (string.IsNullOrEmpty(_rawInput)) return;
-        while (_rawInput[0] != '{')
+        //if (string.IsNullOrEmpty(_rawInput)) return;
+
+        if (_rawInput2 != "")
         {
-            _rawInput = _rawInput.Remove(0, 1);
+            var counts = new List<int>();
+            var o = _rawInput2.Split("\n").ToList();
+            foreach (var item in o)
+            {
+                var cleanItem = "" + item;
+                var count = Convert.ToInt32(cleanItem[0].ToString());
+                var name = cleanItem.Substring(2, cleanItem.Length - 2);
+                for (var i = 0; i < count; i++)
+                {
+                    _cardPool.Add(_cards.First(o => o.CardFaces[0].Name == name));
+                }
+            }
+
         }
-        var cardIds = JsonConvert.DeserializeObject<LogFile>(_rawInput)?.Payload.CardPool;
-        if (cardIds == null) return;
-        cardIds.Sort();
-        foreach (var c in cardIds)
+        else
         {
-            _cardPool.Add(_cards.First(o => o.ArenaId == c));
+            while (_rawInput[0] != '{')
+            {
+                _rawInput = _rawInput.Remove(0, 1);
+            }
+            var cardIds = JsonConvert.DeserializeObject<LogFile>(_rawInput)?.Payload.CardPool;
+            if (cardIds == null) return;
+            cardIds.Sort();
+            foreach (var c in cardIds)
+            {
+                _cardPool.Add(_cards.First(o => o.ArenaId == c));
+            }
         }
+
 
 
         var combinations = new[]
