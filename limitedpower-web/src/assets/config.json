@@ -1,0 +1,12 @@
+{
+	"Sets" : [
+		{
+			"code" : "stx",
+			"name" : "Strixhaven"
+		},
+		{
+			"code" : "khm",
+			"name" : "Kaldheim"
+		}
+	]
+}
