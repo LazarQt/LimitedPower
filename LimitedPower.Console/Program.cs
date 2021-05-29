@@ -20,7 +20,8 @@ namespace LimitedPower.Console
         static void Main(string[] args)
         {
 #if DEBUG
-            //args = new[] { Commands.LoadRatings, "stx,sta", @"C:\dev\out", File.ReadAllText("sample-configuration-stxsta.json") };
+            args = new[] { Commands.LoadCards, "stx,sta", @"C:\dev\out" };
+            //args = new[] { Commands.LoadRatings, "stx,sta", @"C:\dev\out", File.ReadAllText("sample-stx.json") };
             //args = new[] {Commands.LoadRatings, "khm",@"C:\dev\out", File.ReadAllText("sample-configuration-khm.json")};
             //args = new[] {Commands.LoadImages, "stx,sta",@"C:\dev\out"};
             //args = new[] { Commands.LoadImages, "khm", @"C:\dev\out", "{\"ScryfallApi\":{\"PrintedSize\":285}}" };

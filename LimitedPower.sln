@@ -17,9 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".batches", ".batches", "{D9
 		.batches\LoadImagesStx.bat = .batches\LoadImagesStx.bat
 		.batches\LoadRatingsKhm.bat = .batches\LoadRatingsKhm.bat
 		.batches\LoadRatingsStx.bat = .batches\LoadRatingsStx.bat
+		.batches\stx.json = .batches\stx.json
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LimitedPower.UI", "LimitedPower.UI\LimitedPower.UI.csproj", "{B21B4172-5E5D-49FB-AEBA-E9755E57469E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LimitedPower.Model", "LimitedPower.Model\LimitedPower.Model.csproj", "{AA06521A-BB79-42AF-868A-6D213E68DD63}"
 EndProject
@@ -41,10 +40,6 @@ Global
 		{4926758B-0163-402C-9369-1C17A1595696}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4926758B-0163-402C-9369-1C17A1595696}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4926758B-0163-402C-9369-1C17A1595696}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B21B4172-5E5D-49FB-AEBA-E9755E57469E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B21B4172-5E5D-49FB-AEBA-E9755E57469E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B21B4172-5E5D-49FB-AEBA-E9755E57469E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B21B4172-5E5D-49FB-AEBA-E9755E57469E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AA06521A-BB79-42AF-868A-6D213E68DD63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AA06521A-BB79-42AF-868A-6D213E68DD63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA06521A-BB79-42AF-868A-6D213E68DD63}.Release|Any CPU.ActiveCfg = Release|Any CPU

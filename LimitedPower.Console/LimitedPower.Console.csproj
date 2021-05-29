@@ -14,10 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="sample-configuration-khm.json">
+    <None Update="sample-khm.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sample-configuration-stxsta.json">
+    <None Update="sample-stx.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

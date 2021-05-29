@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using LimitedPower.ScryfallLib.Model;
 using Newtonsoft.Json;
 using RestSharp;
@@ -57,7 +58,7 @@ namespace LimitedPower.ScryfallLib
                 {
                     var printedSize = set.PrintedSize;
                     if (Parameters.ContainsKey("PrintedSize")) printedSize = Convert.ToInt32(Parameters["PrintedSize"]);
-                    if (Convert.ToInt32(sourceCard.CollectorNumber) > printedSize)
+                    if (result.Any(o => o.Name == sourceCard.Name) || Convert.ToInt32(sourceCard.CollectorNumber) > printedSize)
                     {
                         continue;
                     }

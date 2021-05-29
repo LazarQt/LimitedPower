@@ -1,0 +1,14 @@
+{
+	"settings": {
+		"files.exclude": {
+			"babel.config.js": true,
+			"package-lock.json": true,
+			"package.json": true
+		}
+	},
+	"folders": [
+		{
+			"path": "."
+		}
+	]
+}

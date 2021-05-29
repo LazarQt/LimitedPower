@@ -1,19 +1,23 @@
 <template>
   <div class="hello">
     <div class="container">
-      <div class="row">
-        <div v-for="card in this.cardJson" :key="card.ArenaId">
-          <!-- <img :key="card.ArenaId" :alt="card.Name" :src="require('./../assets/img/set/stx/76396-0.jpg' + card.Description)"> -->
-          <!-- <span>{{card.ArenaId}}</span> -->
-
-          <span>{{ card.Name }}</span>
+      <div v-for="(bundle, index) in this.cardJson" :key="index" class="row">
+        <!-- <img :key="card.ArenaId" :alt="card.Name" :src="require('./../assets/img/set/stx/76396-0.jpg' + card.Description)"> -->
+        <!-- <span>{{card.ArenaId}}</span> -->
+        <div
+          v-for="card in bundle"
+          :key="card.ArenaId"
+          class="column column-20"
+        >
           <img :src="card.Path" />
-          <!-- <img :src="'@/assets/anatomy.jpg'"> -->
+          <small>{{ card.Name }}</small>
+          <p>A</p>
         </div>
+        <!-- <img :src="card.Path" /> -->
+        <!-- <img :src="'@/assets/anatomy.jpg'"> -->
       </div>
     </div>
     <h1>{{ setCode }}</h1>
-
     <!-- <img v-bind:key="card.ArenaId" v-for="image in cardJson" v-bind:src="image.ArenaId" :alt="image.Name" /> -->
   </div>
 </template>
@@ -42,21 +46,23 @@ export default {
     Load: function () {
       window.console.log("i am created");
       var cardRatings = require("@/assets/ratings/" + this.setCode + ".json");
-      cardRatings.forEach((i) => i.Path = require(`@/assets/img/set/${i.SetCode}/${i.ArenaId}-0.jpg`) );
+      cardRatings.forEach(
+        (i) =>
+          (i.Path = require(`@/assets/img/set/${i.SetCode}/${i.ArenaId}-0.jpg`))
+      );
 
       var cards = [];
-      var pkg = [];    
-      for(var i = 0; i < cardRatings.length; i++){
+      var pkg = [];
+      for (var i = 0; i < cardRatings.length; i++) {
         pkg.push(cardRatings[i]);
-        if(pkg.length >= 5){
+        if (pkg.length >= 5) {
           cards.push(pkg);
           pkg = [];
         }
       }
-      if(pkg.length>0) {
+      if (pkg.length > 0) {
         cards.push(pkg);
       }
-  window.console.log(cards)
       this.cardJson = cards;
       window.console.log(this.cardJson);
     },
