@@ -1,21 +1,14 @@
 [
   {
-    "GeneratorName": "SeventeenLandsGenerator",
-    "CardNameSubstitutions": {},
-    "Args": []
-  },
-  {
     "GeneratorName": "DraftaholicsAnonymousGenerator",
     "CardNameSubstitutions": {
       "Mage Hunters' Onslaught": "Mage Hunter's Onslaught",
       "Plumb the Forbidden": "Plumb the Forgotten",
       "Academic Dispute": "Academic Debate"
-    },
-    "Args": []
+    }
   },
   {
     "GeneratorName": "DraftSimGenerator",
-    "CardNameSubstitutions": {},
     "Args": [
       "STX,STX_mys,STX_lesson"
     ]
@@ -34,7 +27,6 @@
   },
   {
     "GeneratorName": "DeathsieGenerator",
-    "CardNameSubstitutions": {},
     "Args": [
       "1KGjmlYSENE5M3lNCKwvtmMnDw_Bq9d9Hw5nk1_12o0w",
       "Deathsie",
@@ -43,7 +35,6 @@
   },
   {
     "GeneratorName": "MtgaZoneGenerator",
-    "CardNameSubstitutions": {},
     "Args": [
       "1KGjmlYSENE5M3lNCKwvtmMnDw_Bq9d9Hw5nk1_12o0w",
       "MtgaZone",

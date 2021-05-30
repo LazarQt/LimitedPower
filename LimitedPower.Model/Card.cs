@@ -9,8 +9,9 @@ namespace LimitedPower.Model
         public string SetCode { get; set; }
         public string CollectorNumber { get; set; }
         public List<string> Keywords;
-        public RarityStatus Rarity { get; set; }
-        public ColorWheel ColorIdentity { get; set; }
+        public string Rarity { get; set; }
+        public List<string> Colors { get; set; }
+        public List<string> ColorIdentity { get; set; }
         public List<string> ProducedMana { get; set; }
         public List<CardFace> CardFaces { get; set; } = new List<CardFace>();
 

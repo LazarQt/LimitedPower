@@ -25,9 +25,10 @@ namespace LimitedPower.Core
                 var card = new Card
                 {
                     CollectorNumber = sourceCard.CollectorNumber,
-                    ColorIdentity = sourceCard.ColorIdentity.CreateColorWheel(),
+                    Colors = sourceCard.Colors,
+                    ColorIdentity = sourceCard.ColorIdentity,
                     Name = sourceCard.Name,
-                    Rarity = sourceCard.Rarity.GetRarity(),
+                    Rarity = sourceCard.Rarity,
                     SetCode = sourceCard.Set,
                     ArenaId = sourceCard.ArenaId,
                     Keywords = sourceCard.Keywords,

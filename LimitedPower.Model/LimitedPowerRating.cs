@@ -4,23 +4,14 @@ namespace LimitedPower.Model
     {
         public double Rating { get; set; }
         public string Description { get; set; }
-        public RatingType RatingType { get; set; }
         public ReviewContributor ReviewContributor { get; set; }
 
-        public LimitedPowerRating(double rating, string description, ReviewContributor reviewContributor, RatingType ratingType = RatingType.Main)
+        public LimitedPowerRating(double rating, string description, ReviewContributor reviewContributor)
         {
             Rating = rating;
             Description = description;
             ReviewContributor = reviewContributor;
-            RatingType = ratingType;
         }
-    }
-
-    public enum RatingType
-    {
-        Main,
-        SideBoard,
-        Lesson
     }
 
     public enum ReviewContributor

@@ -20,8 +20,10 @@ namespace LimitedPower.Console
         static void Main(string[] args)
         {
 #if DEBUG
-            args = new[] { Commands.LoadCards, "stx,sta", @"C:\dev\out" };
-            //args = new[] { Commands.LoadRatings, "stx,sta", @"C:\dev\out", File.ReadAllText("sample-stx.json") };
+            //args = new[] {Commands.LoadImages, "stx,sta",@"C:\dev\out"};
+            //args = new[] { Commands.LoadCards, "stx,sta", @"C:\dev\out" };
+            args = new[] { Commands.LoadRatings, "stx,sta", @"C:\dev\out", @"‪C:\dev\LimitedPower\.batches\stx.json" };
+
             //args = new[] {Commands.LoadRatings, "khm",@"C:\dev\out", File.ReadAllText("sample-configuration-khm.json")};
             //args = new[] {Commands.LoadImages, "stx,sta",@"C:\dev\out"};
             //args = new[] { Commands.LoadImages, "khm", @"C:\dev\out", "{\"ScryfallApi\":{\"PrintedSize\":285}}" };
@@ -30,13 +32,6 @@ namespace LimitedPower.Console
             var sets = args.GetParam(1).Split(',');
             var primarySet = sets.First();
             var root = args.GetParam(2);
-
-            if (command.Equals(Commands.LoadCards))
-            {
-                var customParameters = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, object>>>(args.GetParam(3));
-                File.WriteAllText(Path.Combine(root, $"{primarySet}.json"),
-                    JsonConvert.SerializeObject(new AssetGenerator(new ScryfallApi(customParameters?["ScryfallApi"])).GenerateSetJson(sets)));
-            }
 
             if (command.Equals(Commands.LoadImages))
             {
@@ -58,9 +53,16 @@ namespace LimitedPower.Console
                 }
             }
 
+            if (command.Equals(Commands.LoadCards))
+            {
+                var customParameters = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, object>>>(args.GetParam(3));
+                File.WriteAllText(Path.Combine(root, $"{primarySet}.json"),
+                    JsonConvert.SerializeObject(new AssetGenerator(new ScryfallApi(customParameters?["ScryfallApi"])).GenerateSetJson(sets)));
+            }
+
             if (command.Equals(Commands.LoadRatings))
             {
-                var parserConfigurations = JsonConvert.DeserializeObject<List<ParserConfiguration>>(args.GetParam(3));
+                var parserConfigurations = JsonConvert.DeserializeObject<List<ParserConfiguration>>(File.ReadAllText(args.GetParam(3)));
                 if (parserConfigurations == null) return;
                 foreach (var p in parserConfigurations)
                 {
