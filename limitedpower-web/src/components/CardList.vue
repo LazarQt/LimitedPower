@@ -1,60 +1,61 @@
 <template>
   <div class="hello">
     <div class="container">
-      <div v-for="(bundle, index) in this.cardJson" :key="index" class="row">
-        <!-- <img :key="card.ArenaId" :alt="card.Name" :src="require('./../assets/img/set/stx/76396-0.jpg' + card.Description)"> -->
-        <!-- <span>{{card.ArenaId}}</span> -->
+      <button v-on:click="ToggleLive()">
+        Showing: {{ this.showLiveData ? "Live Ratings" : "Initial Ratings" }}
+      </button>
+      <div v-for="(bundle, index) in this.cardBatches" :key="index" class="row">
         <div
           v-for="card in bundle"
           :key="card.ArenaId"
           class="column column-20"
         >
-          <img :src="card.Path" />
-          <small>{{ card.Name }}</small>
-          <p>A</p>
+          <img
+            :style="card.cardFaces.length > 1 ? 'cursor:pointer;' : ''"
+            v-on:click="FlipCard(card)"
+            :src="
+              card.showBack && card.cardFaces.length > 1
+                ? card.pathBack
+                : card.pathFront
+            "
+          />
+          <small>{{ card.name }}</small>
+          <br />
+          <strong v-if="showLiveData">{{ card.liveGrade }}</strong>
+          <strong v-else>{{ card.initialGrade }}</strong>
+
+          ( <span v-if="showLiveData">{{ card.liveRating }}</span>
+          <span v-else>{{ card.initialRating }}</span> )
         </div>
-        <!-- <img :src="card.Path" /> -->
-        <!-- <img :src="'@/assets/anatomy.jpg'"> -->
       </div>
     </div>
-    <h1>{{ setCode }}</h1>
-    <!-- <img v-bind:key="card.ArenaId" v-for="image in cardJson" v-bind:src="image.ArenaId" :alt="image.Name" /> -->
   </div>
 </template>
 
 <script>
-//const omg = '@/assets/ratings/items.json';
-//import(omg).then(res=>window.console.log(res));
-//window.console.log("i am top level");
-//window.console.log(json);
-//  json.forEach(x => { window.console.log(x); });
+import CardStorage from "@/services/CardStorage.js";
 
 export default {
   name: "CardList",
   props: {
     setCode: String,
+    apiCall: String
   },
+  components: {},
   watch: {
-    // whenever question changes, this function will run
-    $route(to, from) {
-      window.console.log(to);
-      window.console.log(from);
-      this.Load();
+    $route() {
+      this.Load(true);
     },
   },
   methods: {
-    Load: function () {
-      window.console.log("i am created");
-      var cardRatings = require("@/assets/ratings/" + this.setCode + ".json");
-      cardRatings.forEach(
-        (i) =>
-          (i.Path = require(`@/assets/img/set/${i.SetCode}/${i.ArenaId}-0.jpg`))
-      );
+    GetCardBatches: function (isLive) {
+      this.showLiveData = isLive;
+      var storageCards = CardStorage.get(this.setCode, isLive);
 
       var cards = [];
       var pkg = [];
-      for (var i = 0; i < cardRatings.length; i++) {
-        pkg.push(cardRatings[i]);
+      for (var i = 0; i < storageCards.length; i++) {
+        pkg.push(storageCards[i]);
         if (pkg.length >= 5) {
           cards.push(pkg);
           pkg = [];
@@ -63,19 +64,59 @@ export default {
       if (pkg.length > 0) {
         cards.push(pkg);
       }
-      this.cardJson = cards;
-      window.console.log(this.cardJson);
+      this.cardBatches = cards;
+    },
+    FlipCard: function (card) {
+      if (!card.isDFC) return;
+      card.showBack = !card.showBack;
+    },
+    ToggleLive: function () {
+      this.showLiveData = !this.showLiveData;
+      this.Load(this.showLiveData);
+    },
+    Load: function (isLive) {
+      window.console.log("i am created");
+
+      var c = CardStorage.get(this.setCode, isLive);
+      console.log(c);
+      if (c.length > 0) {
+        this.GetCardBatches(isLive);
+        return;
+      }
+
+      fetch(
+        "http://localhost:53517/"+this.apiCall+"/" +
+          this.setCode +
+          "?live=" +
+          isLive.toString()
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("called web api");
+          data.forEach((i) => {
+            i.showBack = false;
+            i.pathFront = require(`@/assets/img/set/${i.setCode}/${i.arenaId}-0.jpg`);
+            if (i.cardFaces.length > 1) {
+              i.pathBack = require(`@/assets/img/set/${i.setCode}/${i.arenaId}-1.jpg`);
+            }
+          });
+
+          CardStorage.add(this.setCode, isLive, data);
+          this.GetCardBatches(isLive);
+          //this.cardStorage[this.setCode + isLive] = data;
+          //console.log(this.cardStorage);
+        });
     },
   },
   data: function () {
     return {
-      cardJson: [],
-      items: [],
-      imgs: {},
+      cardStorage: {},
+      showLiveData: true,
+      cardBatches: [],
     };
   },
   created: function () {
-    this.Load();
+    this.Load(true);
   },
 };
 </script>

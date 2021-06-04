@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace LimitedPower.Model
 {
@@ -13,8 +15,31 @@ namespace LimitedPower.Model
         public List<string> Colors { get; set; }
         public List<string> ColorIdentity { get; set; }
         public List<string> ProducedMana { get; set; }
-        public List<CardFace> CardFaces { get; set; } = new List<CardFace>();
+        public List<CardFace> CardFaces { get; set; }
+        public List<LimitedPowerRating> Ratings { get; set; }
+    }
 
-        public List<LimitedPowerRating> Ratings = new List<LimitedPowerRating>();
+    public class ViewCard : Card
+    {
+        public double LiveRating => Math.Round(Ratings
+            .Where(r => r.ReviewContributor == ReviewContributor.SeventeenLands)
+            .Average(x => x.Rating), 2);
+
+        public double InitialRating => Math.Round(Ratings
+            .Where(r => r.ReviewContributor != ReviewContributor.SeventeenLands)
+            .Average(x => x.Rating), 2);
+
+        public bool IsDFC => CardFaces.Count > 1;
+
+        public string LiveGrade => GetStringGrade(LiveRating);
+        public string InitialGrade => GetStringGrade(InitialRating);
+
+        private string GetStringGrade(double rating)
+        {
+            if (rating > 99) return "S";
+            var ratings = new[] { "F", "D-", "D", "D+", "C-", "C", "C+", "B-", "B", "B+", "A-", "A", "A+" };
+            return ratings[Convert.ToInt32(Math.Floor(rating * ratings.Length / 100))];
+        }
+
     }
 }

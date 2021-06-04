@@ -1,17 +1,21 @@
 <template>
   <div class="home">
-    <CardList :msg="$route.params.setcode"/>
+    <CardList :apiCall="'TopCommons'" :setCode="$route.params.setcode" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import CardList from '@/components/CardList.vue'
+import CardList from "@/components/CardList.vue";
 
 export default {
-  name: 'TopCommons',
+  name: "TierList",
+  data: function () {
+    return {
+      count: 0,
+    };
+  },
   components: {
-    CardList
-  }
-}
+    CardList,
+  },
+};
 </script>

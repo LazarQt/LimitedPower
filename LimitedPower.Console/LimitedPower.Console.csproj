@@ -14,10 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="sample-khm.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="sample-stx.json">
+    <None Update="credentials.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

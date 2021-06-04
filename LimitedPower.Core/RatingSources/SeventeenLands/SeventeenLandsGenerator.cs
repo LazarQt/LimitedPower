@@ -17,16 +17,11 @@ namespace LimitedPower.Core.RatingSources.SeventeenLands
 
         protected override List<RawRating<double>> GetRawRatings()
         {
-            // load reviews from website
-            string doc;
-            using (var client = new System.Net.WebClient()) // WebClient class inherits IDisposable
-            {
-
-                doc = client.DownloadString(Uri.EscapeUriString(
-                    $"https://www.17lands.com/card_ratings/data?expansion={Set.ToUpper()}&format=PremierDraft&start_date=2021-04-24&end_date=2021-05-02"));
-            }
-            var cardRatings = JsonConvert.DeserializeObject<List<SlCard>>(doc);
+            var cardRatings = GetLatestRatings(DateTime.Now, 7, GetCardsFile().Count);
             if (cardRatings == null) throw new Exception("ratings are null");
+
+            // // in some cases, cards are registered twice (e.g. same land with different art), skip those
+            cardRatings = cardRatings.GroupBy(x => x.Name).Select(x => x.First()).ToList();
 
             // populate list
             var result = new List<RawRating<double>>();
@@ -49,5 +44,22 @@ namespace LimitedPower.Core.RatingSources.SeventeenLands
         }
 
         protected override IRatingCalculator<double> CreateRatingCalculator() => new DoubleCalculator(_maxRating, _minRating);
+
+        private List<SlCard> GetLatestRatings(DateTime today, int daysBack, int expectedCardCount)
+        {
+            // load reviews from website
+            using var client = new System.Net.WebClient();
+            var lastWeek = today.AddDays(-daysBack);
+            var url = $"https://www.17lands.com/card_ratings/data?" +
+                      $"expansion={Set.ToUpper()}&format=PremierDraft&" +
+                      $"start_date={lastWeek.Year}-{lastWeek.Month:00}-{lastWeek.Day:00}&end_date={today.Year}-{today.Month:00}-{today.Day:00}";
+            var doc = client.DownloadString(Uri.EscapeUriString(url));
+            var cardRatings = JsonConvert.DeserializeObject<List<SlCard>>(doc);
+            if (cardRatings != null && (!cardRatings.Any() || cardRatings.Count < expectedCardCount)) 
+            {
+                return GetLatestRatings(today, daysBack + 3, expectedCardCount);
+            }
+            return cardRatings;
+        }
     }
 }

@@ -43,7 +43,7 @@ namespace LimitedPower.Core.RatingSources
         public void Process()
         {
             // load cards
-            var cards = JsonConvert.DeserializeObject<List<Card>>(File.ReadAllText(SetFile));
+            var cards = GetCardsFile();
             if (cards == null)
             {
                 throw new Exception($"could not load file {SetFile}");
@@ -64,7 +64,7 @@ namespace LimitedPower.Core.RatingSources
                 // setup search term + remove white spaces
                 var searchTerm = ModifySearchTerm(card.Name);
                 // substitute if any
-                if (CardNameSubstitutions.ContainsKey(searchTerm))
+                if (CardNameSubstitutions != null && CardNameSubstitutions.ContainsKey(searchTerm))
                 {
                     searchTerm = CardNameSubstitutions[searchTerm];
                 }
@@ -86,5 +86,7 @@ namespace LimitedPower.Core.RatingSources
             // write ratings back to original file
             File.WriteAllText(SetFile, JsonConvert.SerializeObject(cards));
         }
+
+        protected List<Card> GetCardsFile() => JsonConvert.DeserializeObject<List<Card>>(File.ReadAllText(SetFile));
     }
 }

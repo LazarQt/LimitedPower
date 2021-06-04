@@ -22,11 +22,13 @@ namespace LimitedPower.Console
 #if DEBUG
             //args = new[] {Commands.LoadImages, "stx,sta",@"C:\dev\out"};
             //args = new[] { Commands.LoadCards, "stx,sta", @"C:\dev\out" };
-            args = new[] { Commands.LoadRatings, "stx,sta", @"C:\dev\out", @"‪C:\dev\LimitedPower\.batches\stx.json" };
+            //args = new[] { Commands.LoadRatings, "stx,sta", @"C:\dev\out", "C:\\dev\\LimitedPower\\.batches\\stx.json" };
+            //args = new[] { Commands.LoadRatings, "stx,sta", @"C:\dev\out", "C:\\dev\\LimitedPower\\.batches\\live.json" };
 
-            //args = new[] {Commands.LoadRatings, "khm",@"C:\dev\out", File.ReadAllText("sample-configuration-khm.json")};
-            //args = new[] {Commands.LoadImages, "stx,sta",@"C:\dev\out"};
-            //args = new[] { Commands.LoadImages, "khm", @"C:\dev\out", "{\"ScryfallApi\":{\"PrintedSize\":285}}" };
+            args = new[] { Commands.LoadImages, "khm", @"C:\dev\out", "{\"ScryfallApi\":{\"PrintedSize\":285}}" };
+            //args = new[] { Commands.LoadCards, "khm", @"C:\dev\out", "{\"ScryfallApi\":{\"PrintedSize\":285}}" };
+            //args = new[] { Commands.LoadRatings, "khm", @"C:\dev\out", "C:\\dev\\LimitedPower\\.batches\\khm.json" };
+            //args = new[] { Commands.LoadRatings, "khm", @"C:\dev\out", "C:\\dev\\LimitedPower\\.batches\\live.json" };
 #endif
             var command = args.GetParam(0);
             var sets = args.GetParam(1).Split(',');

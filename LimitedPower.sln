@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LimitedPower.Core", "Limite
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".batches", ".batches", "{D989E8F4-F8BC-49F4-AF5B-0B1212B717FB}"
 	ProjectSection(SolutionItems) = preProject
+		.batches\khm.json = .batches\khm.json
+		.batches\live.json = .batches\live.json
 		.batches\LoadCardsKhm.bat = .batches\LoadCardsKhm.bat
 		.batches\LoadCardsStx.bat = .batches\LoadCardsStx.bat
 		.batches\LoadImagesKhm.bat = .batches\LoadImagesKhm.bat
@@ -21,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".batches", ".batches", "{D9
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LimitedPower.Model", "LimitedPower.Model\LimitedPower.Model.csproj", "{AA06521A-BB79-42AF-868A-6D213E68DD63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LimitedPower.Api", "LimitedPower.Api\LimitedPower.Api.csproj", "{0DC80444-5B77-4B70-8BFF-161625EEA7D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +48,10 @@ Global
 		{AA06521A-BB79-42AF-868A-6D213E68DD63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA06521A-BB79-42AF-868A-6D213E68DD63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA06521A-BB79-42AF-868A-6D213E68DD63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DC80444-5B77-4B70-8BFF-161625EEA7D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DC80444-5B77-4B70-8BFF-161625EEA7D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DC80444-5B77-4B70-8BFF-161625EEA7D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DC80444-5B77-4B70-8BFF-161625EEA7D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
