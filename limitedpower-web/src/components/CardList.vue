@@ -19,13 +19,15 @@
                 : card.pathFront
             "
           />
-          <small>{{ card.name }}</small>
-          <br />
-          <strong v-if="showLiveData">{{ card.liveGrade }}</strong>
-          <strong v-else>{{ card.initialGrade }}</strong>
+          <div class="cardTextBox">
+            <small>{{ card.name }}</small>
+            <br />
+            <strong v-if="showLiveData">{{ card.liveGrade }}</strong>
+            <strong v-else>{{ card.initialGrade }}</strong>
 
-          ( <span v-if="showLiveData">{{ card.liveRating }}</span>
-          <span v-else>{{ card.initialRating }}</span> )
+            (<span v-if="showLiveData">{{ card.liveRating }}</span>
+            <span v-else>{{ card.initialRating }}</span>)
+          </div>
         </div>
       </div>
     </div>
@@ -39,7 +41,7 @@ export default {
   name: "CardList",
   props: {
     setCode: String,
-    apiCall: String
+    apiCall: String,
   },
   components: {},
   watch: {
@@ -85,7 +87,9 @@ export default {
       }
 
       fetch(
-        "http://localhost:53517/"+this.apiCall+"/" +
+        "http://localhost:53517/" +
+          this.apiCall +
+          "/" +
           this.setCode +
           "?live=" +
           isLive.toString()
@@ -103,8 +107,6 @@ export default {
 
           CardStorage.add(this.setCode, isLive, data);
           this.GetCardBatches(isLive);
-          //this.cardStorage[this.setCode + isLive] = data;
-          //console.log(this.cardStorage);
         });
     },
   },
@@ -136,5 +138,9 @@ li {
 }
 a {
   color: #42b983;
+}
+.cardTextBox {
+  margin-top: -10px;
+  margin-bottom: 15px;
 }
 </style>

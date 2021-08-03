@@ -1,6 +1,10 @@
 {
 	"Sets" : [
 		{
+			"code" : "afr",
+			"name" : "Forgotten Realms"
+		},
+		{
 			"code" : "stx",
 			"name" : "Strixhaven"
 		},

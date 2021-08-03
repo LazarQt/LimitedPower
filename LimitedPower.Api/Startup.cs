@@ -27,13 +27,6 @@ namespace LimitedPower.Api
             });
             services.AddCors(options =>
             {
-                options.AddPolicy("Policy1",
-                    builder =>
-                    {
-                        builder.WithOrigins("http://example.com",
-                            "http://www.contoso.com");
-                    });
-
                 options.AddPolicy("AnotherPolicy",
                     builder =>
                     {
@@ -54,7 +47,7 @@ namespace LimitedPower.Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LimitedPower.Api v1"));
             }
 
-            
+
             app.UseHttpsRedirection();
 
             app.UseRouting();

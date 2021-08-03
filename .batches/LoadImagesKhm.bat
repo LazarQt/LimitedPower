@@ -1,1 +1,0 @@
-..\LimitedPower.Console\bin\Debug\net5.0\LimitedPower.Console.exe LoadImages khm C:\dev\out\ {"ScryfallApi":{"PrintedSize":285}}

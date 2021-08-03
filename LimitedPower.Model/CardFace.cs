@@ -2,11 +2,11 @@
 {
     public class CardFace
     {
-        public string Name;
-        public string TypeLine;
-        public string ManaCost;
-        public string OracleText;
-        public int Power;
-        public int Toughness;
+        public string Name { get; set; }
+        public string TypeLine { get; set; }
+        public string ManaCost { get; set; }
+        public string OracleText { get; set; }
+        public int Power { get; set; }
+        public int Toughness { get; set; }
     }
 }

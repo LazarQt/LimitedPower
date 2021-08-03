@@ -50,7 +50,7 @@ namespace LimitedPower.Core.RatingSources
             }
 
             // remove old ratings
-            cards.ForEach(c => c.Ratings.RemoveAll(r => ReviewContributors.Contains(r.ReviewContributor)));
+            cards.ForEach(c => c.Ratings?.RemoveAll(r => ReviewContributors.Contains(r.ReviewContributor)));
 
             // get raw ratings
             var rawRatings = GetRawRatings();

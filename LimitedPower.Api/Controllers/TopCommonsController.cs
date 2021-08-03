@@ -28,7 +28,15 @@ namespace LimitedPower.Api.Controllers
             var cards = JsonConvert.DeserializeObject<List<ViewCard>>(System.IO.File.ReadAllText($"Set/{setCode}.json"));
             if (cards == null) return null;
             cards = live ? cards.OrderByDescending(c => c.LiveRating).ToList() : cards.OrderByDescending(c => c.InitialRating).ToList();
-            return cards;
+
+
+            var groupByColors = cards.Where(x => x.Rarity == "common").GroupBy(c => c.ColorGroup());
+            var bestCommons = new List<ViewCard>();
+            foreach (var g in groupByColors)
+            {
+                bestCommons.AddRange(g.Take(5));
+            }
+            return bestCommons;
         }
     }
 }

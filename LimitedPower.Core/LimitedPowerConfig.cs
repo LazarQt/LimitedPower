@@ -3,6 +3,13 @@ using Newtonsoft.Json;
 
 namespace LimitedPower.Core
 {
+    public class LimitedPowerConfig
+    {
+        public string Set { get; set; }
+        public Dictionary<string, object> ScryfallApiArgs { get; set; }
+        public List<ParserConfiguration> ParserConfigurations { get; set; }
+    }
+
     public class ParserConfiguration
     {
         [JsonProperty("GeneratorName")]

@@ -1,0 +1,193 @@
+[
+  {
+    "Set": "afr",
+    "ScryfallApiArgs": {
+    },
+    "ParserConfigurations": [
+      {
+        "GeneratorName": "DraftaholicsAnonymousGenerator",
+        "CardNameSubstitutions": {
+          "Djinni Windseer": "Djinni Windseeker",
+          "Spiked Pit Trap": "Spike Pit Trap"
+        },
+        "Args": [
+        ]
+      },
+      {
+        "GeneratorName": "DraftSimGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+          "AFR,AFR/AFR_common,AFR/AFR_uncommon,AFR/AFR_rare,AFR/AFR_mythic"
+        ]
+      },
+      {
+        "GeneratorName": "InfiniteMythicEditionGenerator",
+        "CardNameSubstitutions": {
+          "Djinni Windseer": "Djinni Windseeker",
+          "Spiked Pit Trap": "Spike Pit Trap"
+        },
+        "Args": [
+          "1quh_fgMvL75W4RFougvKTzJQRpyT20YNQgzozeGnbUY",
+          "InfiniteMythicEdition",
+          "F23:I283"
+        ]
+      },
+      {
+        "GeneratorName": "DeathsieGenerator",
+        "CardNameSubstitutions": {
+          "Djinni Windseer": "Djinni Windseeker",
+          "Spiked Pit Trap": "Spike Pit Trap"
+        },
+        "Args": [
+          "1quh_fgMvL75W4RFougvKTzJQRpyT20YNQgzozeGnbUY",
+          "Deathsie",
+          "E24:G66,K24:M66,Q24:S66,W24:Y66,AC24:AE66,E74:G97,K74:M86,R74:S82"
+        ]
+      },
+      {
+        "GeneratorName": "MtgaZoneGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+          "1quh_fgMvL75W4RFougvKTzJQRpyT20YNQgzozeGnbUY",
+          "MtgaZone",
+          "A44:B86,A88:B111,A113:B155,A157:B169,A171:B213,A215:B223,A225:B267,A269:B311",
+          "Drifter:1"
+        ]
+      },
+      {
+        "GeneratorName": "SeventeenLandsGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+        ]
+      }
+    ]
+  },
+  {
+    "Set": "stx,sta",
+    "ParserConfigurations": [
+      {
+        "GeneratorName": "DraftaholicsAnonymousGenerator",
+        "CardNameSubstitutions": {
+          "Mage Hunters' Onslaught": "Mage Hunter's Onslaught",
+          "Plumb the Forbidden": "Plumb the Forgotten",
+          "Academic Dispute": "Academic Debate"
+        }
+      },
+      {
+        "GeneratorName": "DraftSimGenerator",
+        "Args": [
+          "STX/STX,STX/STX_common,STX/STX_lesson_common,STX/STX_lesson_mythic,STX/STX_lesson_rare,STX/STX_mys_mythic,STX/STX_mys_rare,STX/STX_mys_uncommon,STX/STX_mythic,STX/STX_rare,STX/STX_uncommon"
+        ]
+      },
+      {
+        "GeneratorName": "InfiniteMythicEditionGenerator",
+        "CardNameSubstitutions": {
+          "Mage Hunters' Onslaught": "Mage Hunter's Onslaught",
+          "Plumb the Forbidden": "Plumb the Forgotten"
+        },
+        "Args": [
+          "1KGjmlYSENE5M3lNCKwvtmMnDw_Bq9d9Hw5nk1_12o0w",
+          "InfiniteMythicEdition",
+          "E21:H295,M21:P83"
+        ]
+      },
+      {
+        "GeneratorName": "DeathsieGenerator",
+        "Args": [
+          "1KGjmlYSENE5M3lNCKwvtmMnDw_Bq9d9Hw5nk1_12o0w",
+          "Deathsie",
+          "E37:G65,J37:L63,O37:Q64,T37:V64,Y37:AA64,E73:G90,J73:L89,O73:Q90,T73:V90,Y73:AA89,E98:G113,J98:L114,P98:Q111,E133:G143,E150:G161,E167:G177,J133:L144,J150:L161,J167:L171"
+        ]
+      },
+      {
+        "GeneratorName": "MtgaZoneGenerator",
+        "Args": [
+          "1KGjmlYSENE5M3lNCKwvtmMnDw_Bq9d9Hw5nk1_12o0w",
+          "MtgaZone",
+          "A36:B64,A66:B81,A83:B109,A111:B199,A201:B228,A230:B245,A247:B274,A276:B289,A291:B318,A320:B382",
+          "Drifter:1"
+        ]
+      },
+      {
+        "GeneratorName": "SeventeenLandsGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+        ]
+      }
+    ]
+  },
+  {
+    "Set": "khm",
+    "ScryfallApiArgs": {
+      "PrintedSize": 285
+    },
+    "ParserConfigurations": [
+      {
+        "GeneratorName": "DraftaholicsAnonymousGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+        ]
+      },
+      {
+        "GeneratorName": "DraftSimGenerator",
+        "CardNameSubstitutions": {
+          "Snow-Covered Plains": "Snow-Covered Plains 1",
+          "Snow-Covered Island": "Snow-Covered Island 1",
+          "Snow-Covered Swamp": "Snow-Covered Swamp 1",
+          "Snow-Covered Mountain": "Snow-Covered Mountain 1",
+          "Snow-Covered Forest": "Snow-Covered Forest 1"
+        },
+        "Args": [
+          "KHM,KHM_land"
+        ]
+      },
+      {
+        "GeneratorName": "InfiniteMythicEditionGenerator",
+        "CardNameSubstitutions": {
+          "Deathknell Berserker": "Deathknell Berseker",
+          "Varragoth, Bloodsky Sire": "Varragoth, Blodsky Sire"
+        },
+        "Args": [
+          "1kjRvUCV6pem9I4QjSgh5u9Hokt2o1LiidlqMI9XB9sI",
+          "All Cards",
+          "D16:G295"
+        ]
+      },
+      {
+        "GeneratorName": "DeathsieGenerator",
+        "CardNameSubstitutions": {
+
+        },
+        "Args": [
+          "1EwVp8LX98yCav2pGOLuofsqV_pJzsKBL3-26mEAuI1c",
+          "Deathsie",
+          "D38:F76,I38:K76,N38:P78,S38:U76,X38:Z78,D86:F120,I86:K98,O86:P118"
+        ]
+      },
+      {
+        "GeneratorName": "MtgaZoneGenerator",
+        "CardNameSubstitutions": {
+
+        },
+        "Args": [
+          "1EwVp8LX98yCav2pGOLuofsqV_pJzsKBL3-26mEAuI1c",
+          "MtgaZone",
+          "A36:C74,A76:C110,A112:C150,A152:C164,A166:C206,A208:C236,A238:C276,A278:C318",
+          "Drifter:1,Raszero:2"
+        ]
+      },
+      {
+        "GeneratorName": "SeventeenLandsGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+        ]
+      }
+    ]
+  }
+]

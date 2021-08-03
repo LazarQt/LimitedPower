@@ -22,6 +22,8 @@ namespace LimitedPower.Core
             var sourceCards = ScryfallApi.GetSourceCards(setCodes);
             foreach (var sourceCard in sourceCards)
             {
+                // skip basics
+                if (sourceCard.TypeLine.Contains("Basic")) continue;
                 var card = new Card
                 {
                     CollectorNumber = sourceCard.CollectorNumber,

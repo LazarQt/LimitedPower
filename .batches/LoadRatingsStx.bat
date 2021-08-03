@@ -1,1 +1,0 @@
-..\LimitedPower.Console\bin\Debug\net5.0\LimitedPower.Console.exe LoadRatings stx,sta C:\dev\out\ 

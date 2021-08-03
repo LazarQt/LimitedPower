@@ -15,8 +15,8 @@ namespace LimitedPower.Model
         public List<string> Colors { get; set; }
         public List<string> ColorIdentity { get; set; }
         public List<string> ProducedMana { get; set; }
-        public List<CardFace> CardFaces { get; set; }
-        public List<LimitedPowerRating> Ratings { get; set; }
+        public List<CardFace> CardFaces { get; set; } = new List<CardFace>();
+        public List<LimitedPowerRating> Ratings { get; set; } = new List<LimitedPowerRating>();
     }
 
     public class ViewCard : Card

@@ -30,6 +30,9 @@ namespace LimitedPower.Core.RatingSources.DraftSim
                 cardRatings.AddRange(RetrieveDraftSimData(url));
             }
 
+            // remove duplicates 
+            cardRatings = cardRatings.GroupBy(x => x.Name).Select(x => x.First()).ToList();
+
             // SPECIAL CASE: remove some lands, might implement ignore list later
             var ignore = new List<string> {
                 "Snow-Covered_Plains_2",

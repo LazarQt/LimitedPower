@@ -20,7 +20,7 @@ namespace LimitedPower.Core.RatingSources.SeventeenLands
             var cardRatings = GetLatestRatings(DateTime.Now, 7, GetCardsFile().Count);
             if (cardRatings == null) throw new Exception("ratings are null");
 
-            // // in some cases, cards are registered twice (e.g. same land with different art), skip those
+            // in some cases, cards are registered twice (e.g. same land with different art), skip those
             cardRatings = cardRatings.GroupBy(x => x.Name).Select(x => x.First()).ToList();
 
             // populate list
