@@ -23,18 +23,19 @@ namespace LimitedPower.Api.Controllers
         }
 
         [HttpGet("{setCode}")]
-        public List<ViewCard> Get(string setCode, bool live)
+        public List<ViewCard> Get(string setCode, bool live, string callParams)
         {
             var cards = JsonConvert.DeserializeObject<List<ViewCard>>(System.IO.File.ReadAllText($"Set/{setCode}.json"));
             if (cards == null) return null;
             cards = live ? cards.OrderByDescending(c => c.LiveRating).ToList() : cards.OrderByDescending(c => c.InitialRating).ToList();
 
 
-            var groupByColors = cards.Where(x => x.Rarity == "common").GroupBy(c => c.ColorGroup());
+            var commons = cards.Where(x => x.Rarity == "common").ToList();
             var bestCommons = new List<ViewCard>();
-            foreach (var g in groupByColors)
+            foreach (var p in callParams.Split(','))
             {
-                bestCommons.AddRange(g.Take(5));
+                var x = commons.Where(i => i.Colors.GetString().ToLower() == String.Concat(p.OrderBy(c => c)).ToLower());
+                bestCommons.AddRange(x.Take(5));
             }
             return bestCommons;
         }

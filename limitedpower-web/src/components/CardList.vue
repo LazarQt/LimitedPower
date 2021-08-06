@@ -26,7 +26,8 @@
             <strong v-else>{{ card.initialGrade }}</strong>
 
             (<span v-if="showLiveData">{{ card.liveRating }}</span>
-            <span v-else>{{ card.initialRating }}</span>)
+            <span v-else>{{ card.initialRating }}</span
+            >)
           </div>
         </div>
       </div>
@@ -36,12 +37,14 @@
 
 <script>
 import CardStorage from "@/services/CardStorage.js";
+import jsonCfg from "@/assets/config.json";
 
 export default {
   name: "CardList",
   props: {
     setCode: String,
     apiCall: String,
+    callParams: String,
   },
   components: {},
   watch: {
@@ -50,9 +53,9 @@ export default {
     },
   },
   methods: {
-    GetCardBatches: function (isLive) {
+    UpdateCardBatches: function (isLive) {
       this.showLiveData = isLive;
-      var storageCards = CardStorage.get(this.setCode, isLive);
+      var storageCards = CardStorage.get(this.setCode, this.apiCall, isLive);
 
       var cards = [];
       var pkg = [];
@@ -77,22 +80,26 @@ export default {
       this.Load(this.showLiveData);
     },
     Load: function (isLive) {
-      window.console.log("i am created");
-
-      var c = CardStorage.get(this.setCode, isLive);
-      console.log(c);
+      // load cached card
+      var c = CardStorage.get(this.setCode, this.apiCall, isLive);
       if (c.length > 0) {
-        this.GetCardBatches(isLive);
+        this.UpdateCardBatches(isLive);
         return;
       }
 
+      var xd = jsonCfg.Sets.filter(
+        (x) => x.code == this.setCode
+      )[0].topcommons;
+      // fetch data
       fetch(
         "http://localhost:53517/" +
           this.apiCall +
           "/" +
           this.setCode +
           "?live=" +
-          isLive.toString()
+          isLive.toString() +
+          "&callParams=" +
+          xd
       )
         .then((response) => response.json())
         .then((data) => {
@@ -105,8 +112,8 @@ export default {
             }
           });
 
-          CardStorage.add(this.setCode, isLive, data);
-          this.GetCardBatches(isLive);
+          CardStorage.add(this.setCode, this.apiCall, isLive, data);
+          this.UpdateCardBatches(isLive);
         });
     },
   },

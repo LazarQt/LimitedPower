@@ -2,15 +2,43 @@
 	"Sets" : [
 		{
 			"code" : "afr",
-			"name" : "Forgotten Realms"
+			"name" : "Forgotten Realms",
+			"topcommons" : "w,u,b,r,g,"
 		},
 		{
 			"code" : "stx",
-			"name" : "Strixhaven"
+			"name" : "Strixhaven",
+			"topcommons" : "w,u,b,r,g,wr,ur,ug,wb,gb,"
 		},
 		{
 			"code" : "khm",
-			"name" : "Kaldheim"
+			"name" : "Kaldheim",
+			"topcommons" : "w,u,b,r,g,"
+		},
+		{
+			"code" : "znr",
+			"name" : "Zendikar Rising",
+			"topcommons" : "w,u,b,r,g,"
+		},
+		{
+			"code" : "war",
+			"name" : "War of the Spark",
+			"topcommons" : "w,u,b,r,g,"
+		},
+		{
+			"code" : "rna",
+			"name" : "Ravnica Allegiance",
+			"topcommons" : "w,u,b,r,g,gr,wb,ug,rb,uw,"
+		},
+		{
+			"code" : "grn",
+			"name" : "Guilds of Ravnica",
+			"topcommons" : "w,u,b,r,g,wr,ub,gw,bg,ur,"
+		},
+		{
+			"code" : "dom",
+			"name" : "Dominaria",
+			"topcommons" : "w,u,b,r,g,"
 		}
 	]
 }

@@ -30,6 +30,8 @@ namespace LimitedPower.Core.RatingSources
             var result = new List<RawRating<string>>();
             foreach (var r in rawRatings)
             {
+                // in older reviews there were fewer people, todo: fix permanently?
+                if (nameIndex >= r.Count) continue;
                 var cardName = (string)r[nameIndex];
                 foreach (var contributor in contributors)
                 {

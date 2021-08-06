@@ -189,5 +189,194 @@
         ]
       }
     ]
+  },
+  {
+    "Set": "znr",
+    "ScryfallApiArgs": {
+      "PrintedSize": 285
+    },
+    "ParserConfigurations": [
+      {
+        "GeneratorName": "DraftaholicsAnonymousGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+        ]
+      },
+      {
+        "GeneratorName": "DraftSimGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+          "ZNR,ZNR_flip"
+        ]
+      },
+      {
+        "GeneratorName": "InfiniteMythicEditionGenerator",
+        "CardNameSubstitutions": {
+          "Emeria Captain": "Emeria Captian",
+        },
+        "Args": [
+          "1SnHlQd7o5Wd01iwtllOvre9svfNimWX0OoqQg-bO8-A",
+          "All Cards",
+          "B9:E273"
+        ]
+      },
+      {
+        "GeneratorName": "DeathsieGenerator",
+        "CardNameSubstitutions": {
+          "Emeria Captain": "Emeria Captian"
+        },
+        "Args": [
+          "1-V0giGng2L2yMl8wEvSh8j1CWGm4WcJvhHzU28A-mk8",
+          "Deathsie",
+          "C23:E66,H23:J66,M23:O66,R23:T66,W23:Y65,C74:E96,H74:J87,N74:O82"
+        ]
+      },
+      {
+        "GeneratorName": "SeventeenLandsGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+        ]
+      }
+    ]
+  },
+  {
+    "Set": "war",
+    "ScryfallApiArgs": {
+      "PrintedSize": 264
+    },
+    "ParserConfigurations": [
+      {
+        "GeneratorName": "DraftaholicsAnonymousGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+        ]
+      },
+      {
+        "GeneratorName": "DraftSimGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+          "WAR,WAR_planeswalker"
+        ]
+      },
+      {
+        "GeneratorName": "InfiniteMythicEditionGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+          "1z_KrNOeOEeKdpX7H5qLC4OLX_6QL-lhocg-T9Bn2cDQ",
+          "All Cards",
+          "A2:C250"
+        ]
+      },
+      {
+        "GeneratorName": "SeventeenLandsGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+        ]
+      }
+    ]
+  },
+  {
+    "Set": "rna",
+    "ScryfallApiArgs": {
+    },
+    "ParserConfigurations": [
+      {
+        "GeneratorName": "DraftaholicsAnonymousGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+        ]
+      },
+      {
+        "GeneratorName": "DraftSimGenerator",
+        "CardNameSubstitutions": {
+          "Azorius Guildgate": "Azorius Guildgate 1",
+          "Gruul Guildgate": "Gruul Guildgate 1",
+          "Orzhov Guildgate": "Orzhov Guildgate 1",
+          "Rakdos Guildgate": "Rakdos Guildgate 1",
+          "Simic Guildgate": "Simic Guildgate 1"
+        },
+        "Args": [
+          "RNA,RNA_land"
+        ]
+      },
+      {
+        "GeneratorName": "SeventeenLandsGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+        ]
+      }
+    ]
+  },
+  {
+    "Set": "grn",
+    "ScryfallApiArgs": {
+    },
+    "ParserConfigurations": [
+      {
+        "GeneratorName": "DraftaholicsAnonymousGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+        ]
+      },
+      {
+        "GeneratorName": "DraftSimGenerator",
+        "CardNameSubstitutions": {
+          "Boros Guildgate": "Boros Guildgate 1",
+          "Dimir Guildgate": "Dimir Guildgate 1",
+          "Golgari Guildgate": "Golgari Guildgate 1",
+          "Izzet Guildgate": "Izzet Guildgate 1",
+          "Selesnya Guildgate": "Selesnya Guildgate 1"
+        },
+        "Args": [
+          "GRN,GRN_land"
+        ]
+      },
+      {
+        "GeneratorName": "SeventeenLandsGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+        ]
+      }
+    ]
+  },
+  {
+    "Set": "dom",
+    "ScryfallApiArgs": {
+    },
+    "ParserConfigurations": [
+      {
+        "GeneratorName": "DraftaholicsAnonymousGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+        ]
+      },
+      {
+        "GeneratorName": "DraftSimGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+          "DOM"
+        ]
+      },
+      {
+        "GeneratorName": "SeventeenLandsGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+        ]
+      }
+    ]
   }
 ]

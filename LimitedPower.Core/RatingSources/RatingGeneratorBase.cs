@@ -33,7 +33,7 @@ namespace LimitedPower.Core.RatingSources
 
         protected abstract List<RawRating<T>> GetRawRatings();
 
-        protected virtual string ModifySearchTerm(string term) => term.StripBacksideName();
+        protected virtual string ModifySearchTerm(Card card) => card.Layout == "modal_dfc" ? card.Name.StripBacksideName() : card.Name;
 
         protected virtual string SanitizeReviewCard(string cardName) => cardName
             .Trim()
@@ -62,14 +62,15 @@ namespace LimitedPower.Core.RatingSources
             foreach (var card in cards)
             {
                 // setup search term + remove white spaces
-                var searchTerm = ModifySearchTerm(card.Name);
+                var searchTerm = ModifySearchTerm(card);
                 // substitute if any
                 if (CardNameSubstitutions != null && CardNameSubstitutions.ContainsKey(searchTerm))
                 {
                     searchTerm = CardNameSubstitutions[searchTerm];
                 }
 
-                var cardRatings = rawRatings.Where(c => c.CardName.ToLower() == searchTerm.ToLower()).ToList();
+                var cardRatings = rawRatings.Where(c => c.CardName.ToLower() == searchTerm.ToLower()
+                                                        || c.CardName.ToLower() == searchTerm.ToLower().Replace("// ", "")).ToList();
                 foreach (var cardRating in cardRatings)
                 {
                     card.Ratings.Add(new LimitedPowerRating(ratingCalculator.Calculate(cardRating.RawValue), string.Empty, cardRating.ReviewContributor));
@@ -88,5 +89,6 @@ namespace LimitedPower.Core.RatingSources
         }
 
         protected List<Card> GetCardsFile() => JsonConvert.DeserializeObject<List<Card>>(File.ReadAllText(SetFile));
+
     }
 }

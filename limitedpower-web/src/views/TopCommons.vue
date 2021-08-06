@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <CardList :apiCall="'TopCommons'" :setCode="$route.params.setcode" />
+    <CardList :apiCall="'TopCommons'" :setCode="$route.params.setcode" :callParams="'xd'"/>
   </div>
 </template>
 

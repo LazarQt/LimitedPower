@@ -34,7 +34,8 @@ namespace LimitedPower.Core
                     SetCode = sourceCard.Set,
                     ArenaId = sourceCard.ArenaId,
                     Keywords = sourceCard.Keywords,
-                    ProducedMana = sourceCard.ProducedMana ?? new List<string>()
+                    ProducedMana = sourceCard.ProducedMana ?? new List<string>(),
+                    Layout = sourceCard.Layout
                 };
 
                 if (sourceCard.CardFaces != null)
@@ -59,8 +60,9 @@ namespace LimitedPower.Core
                         ManaCost = sourceCard.ManaCost,
                         Name = sourceCard.Name,
                         OracleText = sourceCard.OracleText,
-                        Power = Convert.ToInt32(sourceCard.Power),
-                        Toughness = Convert.ToInt32(sourceCard.Toughness),
+                        // todo : int -> string
+                        Power = sourceCard.Power == null || sourceCard.Power.Contains("*") ? 0 : Convert.ToInt32(sourceCard.Power),
+                        Toughness = sourceCard.Toughness == null || sourceCard.Toughness.Contains("*") ? 0 : Convert.ToInt32(sourceCard.Toughness),
                         TypeLine = sourceCard.TypeLine
                     });
                 }
@@ -81,7 +83,16 @@ namespace LimitedPower.Core
                 {
                     for (var i = 0; i < sourceCard.CardFaces.Count; i++)
                     {
-                        results.Add($"{sourceCard.ArenaId}-{i}.jpg", GetImageBytes(sourceCard.CardFaces[i].ImageUris.Normal));
+                        if (sourceCard.CardFaces[i].ImageUris != null)
+                        {
+                            results.Add($"{sourceCard.ArenaId}-{i}.jpg", GetImageBytes(sourceCard.CardFaces[i].ImageUris.Normal));
+                        }
+                        else
+                        {
+                            results.Add($"{sourceCard.ArenaId}-{i}.jpg", GetImageBytes(sourceCard.ImageUris.Normal));
+                            break;
+                        }
+
                     }
                 }
                 else
