@@ -1,5 +1,4 @@
 <template>
-  <div class="hello">
     <div class="container">
       <button v-on:click="ToggleLive()">
         Showing: {{ this.showLiveData ? "Live Ratings" : "Initial Ratings" }}
@@ -32,7 +31,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -107,7 +105,7 @@ export default {
           data.forEach((i) => {
             i.showBack = false;
             i.pathFront = require(`@/assets/img/set/${i.setCode}/${i.arenaId}-0.jpg`);
-            if (i.cardFaces.length > 1) {
+            if (i.layout == "modal_dfc" > 1) {
               i.pathBack = require(`@/assets/img/set/${i.setCode}/${i.arenaId}-1.jpg`);
             }
           });

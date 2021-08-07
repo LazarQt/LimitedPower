@@ -27,6 +27,11 @@ const routes = [
     path: '/topcommons/:setcode',
     name: 'TopCommons',
     component: () => import(/* webpackChunkName: "topcommons" */ '../views/TopCommons.vue')
+  },
+  {
+    path: '/colorrankings/:setcode',
+    name: 'ColorRankings',
+    component: () => import(/* webpackChunkName: "topcommons" */ '../views/ColorRankings.vue')
   }
 ]
 

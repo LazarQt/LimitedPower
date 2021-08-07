@@ -35,7 +35,8 @@ namespace LimitedPower.Core
                     ArenaId = sourceCard.ArenaId,
                     Keywords = sourceCard.Keywords,
                     ProducedMana = sourceCard.ProducedMana ?? new List<string>(),
-                    Layout = sourceCard.Layout
+                    Layout = sourceCard.Layout,
+                    ManaCost = sourceCard.ManaCost
                 };
 
                 if (sourceCard.CardFaces != null)

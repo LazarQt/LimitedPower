@@ -4,7 +4,8 @@
       <div>
         <router-link to="/">Home</router-link> |
         <router-link :to="'/tierlist/' + GetSetCode()">Tier List</router-link> |
-        <router-link :to="'/topcommons/' + GetSetCode()">Top Commons</router-link> for
+        <router-link :to="'/topcommons/' + GetSetCode()">Top Commons</router-link> |
+        <router-link :to="'/colorrankings/' + GetSetCode()">Color Rankings</router-link> for
         <span v-for="item in myJson.Sets" :key="item.code">
           <router-link :to="item.code">{{ item.code }}</router-link> |
         </span>

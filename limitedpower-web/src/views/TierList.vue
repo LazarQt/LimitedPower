@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home text-center">
     <CardList :apiCall="'TierList'" :setCode="$route.params.setcode" />
   </div>
 </template>

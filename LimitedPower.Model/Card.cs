@@ -8,6 +8,7 @@ namespace LimitedPower.Model
     {
         public int ArenaId { get; set; }
         public string Layout { get; set; }
+        public string ManaCost { get; set; }
         public string Name { get; set; }
         public string SetCode { get; set; }
         public string CollectorNumber { get; set; }
