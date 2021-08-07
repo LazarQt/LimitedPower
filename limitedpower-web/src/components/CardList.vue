@@ -90,7 +90,7 @@ export default {
       )[0].topcommons;
       // fetch data
       fetch(
-        "http://localhost:53517/" +
+        "https://lpconfig.azurewebsites.net/" +
           this.apiCall +
           "/" +
           this.setCode +
@@ -148,4 +148,14 @@ a {
   margin-top: -10px;
   margin-bottom: 15px;
 }
+
+
+/* Larger than mobile screen */
+@media (min-width: 40.0rem) {  }
+
+/* Larger than tablet screen */
+@media (min-width: 80.0rem) {  }
+
+/* Larger than desktop screen */
+@media (min-width: 120.0rem) { }
 </style>

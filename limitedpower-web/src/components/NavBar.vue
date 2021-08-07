@@ -29,7 +29,7 @@ export default {
   methods: {
     GetSetCode: function () {
       var setCode = this.$route.params.setcode;
-      if (setCode == null) return "stx";
+      if (setCode == null) return "afr";
       return setCode;
     },
   },

@@ -40,7 +40,7 @@ export default {
 
 
         
-          fetch("http://localhost:53517/ColorRankings/" +this.$route.params.setcode +"?live=" +isLive.toString()).then(function(response) {
+          fetch("https://lpconfig.azurewebsites.net/ColorRankings/" +this.$route.params.setcode +"?live=" +isLive.toString()).then(function(response) {
       return response.json()
     }).then(function(response) {
                 console.log(response);
