@@ -1,7 +1,5 @@
 <template>
-  <div class="home">
-    <CardList :apiCall="'TopCommons'" :setCode="$route.params.setcode" :callParams="'xd'"/>
-  </div>
+  <CardList :apiCall="'TopCommons'" :setCode="$route.params.setcode" />
 </template>
 
 <script>

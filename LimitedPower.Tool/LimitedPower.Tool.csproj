@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LimitedPower.Api\LimitedPower.Api.csproj" />
     <ProjectReference Include="..\LimitedPower.Core\LimitedPower.Core.csproj" />
   </ItemGroup>
 

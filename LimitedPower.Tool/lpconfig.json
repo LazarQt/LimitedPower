@@ -1,5 +1,19 @@
 [
   {
+    "Set": "akr",
+    "ScryfallApiArgs": {
+    },
+    "ParserConfigurations": [
+      {
+        "GeneratorName": "SeventeenLandsGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+        ]
+      }
+    ]
+  },
+  {
     "Set": "afr",
     "ScryfallApiArgs": {
     },
@@ -214,7 +228,7 @@
       {
         "GeneratorName": "InfiniteMythicEditionGenerator",
         "CardNameSubstitutions": {
-          "Emeria Captain": "Emeria Captian",
+          "Emeria Captain": "Emeria Captian"
         },
         "Args": [
           "1SnHlQd7o5Wd01iwtllOvre9svfNimWX0OoqQg-bO8-A",

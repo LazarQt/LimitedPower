@@ -1,13 +1,16 @@
 <template>
-    <div class="container">
-      <button v-on:click="ToggleLive()">
-        Showing: {{ this.showLiveData ? "Live Ratings" : "Initial Ratings" }}
-      </button>
+  <div class="container">
+    <div class="row">
+      <div style="position: fixed; right: 10px; bottom: 10px">
+        <button v-on:click="ToggleLive()" style="border-radius: 44px">
+          Showing: {{ this.showLiveData ? "Live Ratings" : "Initial Ratings" }}
+        </button>
+      </div>
       <div v-for="(bundle, index) in this.cardBatches" :key="index" class="row">
         <div
           v-for="card in bundle"
           :key="card.ArenaId"
-          class="column column-20"
+          class="col-xs-12 col-sm-4 col-md col-lg"
         >
           <img
             :style="card.cardFaces.length > 1 ? 'cursor:pointer;' : ''"
@@ -31,6 +34,7 @@
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -54,7 +58,6 @@ export default {
     UpdateCardBatches: function (isLive) {
       this.showLiveData = isLive;
       var storageCards = CardStorage.get(this.setCode, this.apiCall, isLive);
-
       var cards = [];
       var pkg = [];
       for (var i = 0; i < storageCards.length; i++) {
@@ -85,9 +88,6 @@ export default {
         return;
       }
 
-      var xd = jsonCfg.Sets.filter(
-        (x) => x.code == this.setCode
-      )[0].topcommons;
       // fetch data
       fetch(
         "https://lpconfig.azurewebsites.net/" +
@@ -97,15 +97,15 @@ export default {
           "?live=" +
           isLive.toString() +
           "&callParams=" +
-          xd
+          jsonCfg.Sets.filter((x) => x.code == this.setCode)[0].topcommons
       )
         .then((response) => response.json())
         .then((data) => {
-          console.log("called web api");
           data.forEach((i) => {
             i.showBack = false;
             i.pathFront = require(`@/assets/img/set/${i.setCode}/${i.arenaId}-0.jpg`);
-            if (i.layout == "modal_dfc" > 1) {
+
+            if (i.layout == "modal_dfc") {
               i.pathBack = require(`@/assets/img/set/${i.setCode}/${i.arenaId}-1.jpg`);
             }
           });
@@ -149,13 +149,15 @@ a {
   margin-bottom: 15px;
 }
 
-
 /* Larger than mobile screen */
-@media (min-width: 40.0rem) {  }
+@media (min-width: 40rem) {
+}
 
 /* Larger than tablet screen */
-@media (min-width: 80.0rem) {  }
+@media (min-width: 80rem) {
+}
 
 /* Larger than desktop screen */
-@media (min-width: 120.0rem) { }
+@media (min-width: 120rem) {
+}
 </style>

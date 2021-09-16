@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using LimitedPower.Model;
 using Microsoft.AspNetCore.Cors;
 using Newtonsoft.Json;
@@ -11,10 +9,11 @@ using Newtonsoft.Json;
 namespace LimitedPower.Api.Controllers
 {
     [ApiController]
-    [EnableCors("AnotherPolicy")]
+    [EnableCors("LocalCrossPolicy")]
     [Route("[controller]")]
     public class TierListController : ControllerBase
     {
+        // ReSharper disable once NotAccessedField.Local
         private readonly ILogger<TierListController> _logger;
 
         public TierListController(ILogger<TierListController> logger)

@@ -31,7 +31,7 @@ namespace LimitedPower.Core.RatingSources.SeventeenLands
                 {
                     ReviewContributor = ReviewContributor.SeventeenLands,
                     RawValue = r.AvgSeen,
-                    CardName = r.Name
+                    CardName = r.Name.Replace("///","//")
                 });
             }
 

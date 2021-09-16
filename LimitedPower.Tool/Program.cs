@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using ImageMagick;
 using LimitedPower.Core;
@@ -21,19 +20,19 @@ namespace LimitedPower.Tool
         // fixed values
         static string rootPath = @"C:\dev\out";
 
-        static void Main(string[] args)
+        static void Main()
         {
             // default settings
             Console.WriteLine($"default out: {rootPath}");
             Console.WriteLine();
 
             // commands
-            Console.WriteLine($"--- commands ---");
+            Console.WriteLine("--- commands ---");
             foreach (var c in typeof(Commands).GetFields(BindingFlags.Static | BindingFlags.Public))
             {
                 Console.WriteLine(c.GetValue(null)?.ToString());
             }
-            Console.WriteLine($"----------------");
+            Console.WriteLine("----------------");
 
             // load config
             var lpConfigs = JsonConvert.DeserializeObject<List<LimitedPowerConfig>>(File.ReadAllText("lpconfig.json"));
@@ -93,7 +92,6 @@ namespace LimitedPower.Tool
 
         private static void LoadCards(LimitedPowerConfig lpConfig) => File.WriteAllText(Path.Combine(rootPath, $"{lpConfig.Set.PrimarySet()}.json"),
             JsonConvert.SerializeObject(new AssetGenerator(new ScryfallApi(lpConfig.ScryfallApiArgs)).GenerateSetJson(lpConfig.Set.ToArray())));
-
 
         private static void LoadRatings(LimitedPowerConfig lpConfig)
         {

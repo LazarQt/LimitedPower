@@ -27,9 +27,14 @@ namespace LimitedPower.Model
             .Where(r => r.ReviewContributor == ReviewContributor.SeventeenLands)
             .Average(x => x.Rating), 2);
 
-        public double InitialRating => Math.Round(Ratings
-            .Where(r => r.ReviewContributor != ReviewContributor.SeventeenLands)
-            .Average(x => x.Rating), 2);
+        public double InitialRating => CalculateInitialRating();
+
+        private double CalculateInitialRating()
+        {
+            var ratings = Ratings
+                .Where(r => r.ReviewContributor != ReviewContributor.SeventeenLands).ToList();
+            return ratings.Any() ? Math.Round(ratings.Average(x => x.Rating), 2) : default;
+        }
 
         public bool IsDFC => CardFaces.Count > 1;
 

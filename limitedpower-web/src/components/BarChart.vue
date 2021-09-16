@@ -1,8 +1,10 @@
 <template>
   <div class="container text-center">
-    <button v-on:click="ToggleLive()">
+    <div style="position: fixed; right: 10px; bottom: 10px">
+      <button v-on:click="ToggleLive()" style="border-radius: 44px">
         Showing: {{ this.showLiveData ? "Live Ratings" : "Initial Ratings" }}
       </button>
+    </div>
     <apexcharts
       height="350"
       type="bar"
@@ -25,32 +27,41 @@ export default {
       this.Load(true);
     },
   },
-  props: {
-  },
+  props: {},
   created: function () {
     this.Load(true);
   },
   methods: {
-        ToggleLive: function () {
+    ToggleLive: function () {
       this.showLiveData = !this.showLiveData;
       this.Load(this.showLiveData);
     },
     Load: function (isLive) {
-      console.log("loool" + isLive);
-
-
-        
-          fetch("https://lpconfig.azurewebsites.net/ColorRankings/" +this.$route.params.setcode +"?live=" +isLive.toString()).then(function(response) {
-      return response.json()
-    }).then(function(response) {
-                console.log(response);
-          this.series = [{
-            data: [response.w,response.u,response.b,response.r,response.g]
-          }];
-    }.bind(this));
-
-
-
+      // https://lpconfig.azurewebsites.net/ColorRankings/
+      fetch(
+        "https://lpconfig.azurewebsites.net/ColorRankings/" +
+          this.$route.params.setcode +
+          "?live=" +
+          isLive.toString()
+      )
+        .then(function (response) {
+          return response.json();
+        })
+        .then(
+          function (response) {
+            this.series = [
+              {
+                data: [
+                  response.w,
+                  response.u,
+                  response.b,
+                  response.r,
+                  response.g,
+                ],
+              },
+            ];
+          }.bind(this)
+        );
     },
   },
   data: function () {
@@ -58,16 +69,52 @@ export default {
       showLiveData: true,
       chartOptions: {
         chart: {
-          id: "basic-bar",
+          type: "bar",
+          height: 350,
+        },
+        plotOptions: {
+          bar: {
+            colors: {
+              ranges: [
+                {
+                  from: -100,
+                  to: -46,
+                  color: "#F15B46",
+                },
+                {
+                  from: -45,
+                  to: 0,
+                  color: "#FEB019",
+                },
+              ],
+            },
+            columnWidth: "80%",
+          },
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        yaxis: {
+          title: {
+            text: "Relative Power Level",
+          },
+          labels: {
+            formatter: function (y) {
+              return y.toFixed(0) + "%";
+            },
+          },
         },
         xaxis: {
+          type: "string",
           categories: ["White", "Blue", "Black", "Red", "Green"],
+          labels: {
+            rotate: -90,
+          },
         },
-        colors:["#9b4dca"]
       },
       series: [
         {
-          name: 'power level',
+          name: "Relative Power Level",
           data: [],
         },
       ],

@@ -4,7 +4,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
 
 namespace LimitedPower.Api
 {
@@ -27,7 +26,7 @@ namespace LimitedPower.Api
             });
             services.AddCors(options =>
             {
-                options.AddPolicy("AnotherPolicy",
+                options.AddPolicy("LocalCrossPolicy",
                     builder =>
                     {
                         builder.WithOrigins("http://localhost:8080")

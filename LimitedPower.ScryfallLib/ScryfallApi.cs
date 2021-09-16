@@ -57,8 +57,9 @@ namespace LimitedPower.ScryfallLib
                 foreach (var sourceCard in cardsSearch.Data)
                 {
                     var printedSize = set.PrintedSize;
+                    if (printedSize == 0 && set.Digital) printedSize = set.CardCount; // fallback for digital only sets
                     if (Parameters.ContainsKey("PrintedSize")) printedSize = Convert.ToInt32(Parameters["PrintedSize"]);
-                    if (result.Any(o => o.Name == sourceCard.Name) || Convert.ToInt32(sourceCard.CollectorNumber) > printedSize)
+                    if (!sourceCard.Booster || result.Any(o => o.Name == sourceCard.Name) || Convert.ToInt32(sourceCard.CollectorNumber) > printedSize)
                     {
                         continue;
                     }

@@ -1,17 +1,9 @@
 <template>
-  <div class="home">
-    <HelloWorld msg="Limited Power" />
-  </div>
+  <div>Magic: The Gathering Limited Tier List</div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
 export default {
   name: "Home",
-  components: {
-    HelloWorld,
-  },
 };
 </script>

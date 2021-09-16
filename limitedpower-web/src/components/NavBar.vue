@@ -3,11 +3,17 @@
     <div id="nav">
       <div>
         <router-link to="/">Home</router-link> |
-        <router-link :to="'/tierlist/' + GetSetCode()">Tier List</router-link> |
-        <router-link :to="'/topcommons/' + GetSetCode()">Top Commons</router-link> |
-        <router-link :to="'/colorrankings/' + GetSetCode()">Color Rankings</router-link> for
-        <span v-for="item in myJson.Sets" :key="item.code">
-          <router-link :to="item.code">{{ item.code }}</router-link> |
+        <router-link :to="'/tierlist/' + GetUrl()">Tier List</router-link> |
+        <router-link :to="'/topcommons/' + GetUrl()">Top Commons</router-link> |
+        <router-link :to="'/colorrankings/' + GetUrl()"
+          >Color Rankings</router-link
+        >
+        for
+        <span v-for="(item, index) in myJson.Sets" :key="item.code">
+          <router-link :to="GetSetUrl(item.code)">{{
+            item.code.toUpperCase()
+          }}</router-link
+          ><span v-if="index + 1 < myJson.Sets.length"> | </span>
         </span>
       </div>
     </div>
@@ -27,7 +33,15 @@ export default {
     };
   },
   methods: {
-    GetSetCode: function () {
+    GetSetUrl: function (setcode) {
+      var name = this.$route.name;
+      var start = "";
+      if (name == null || name == "Home") {
+        start = "/tierlist/";
+      }
+      return start + setcode;
+    },
+    GetUrl: function () {
       var setCode = this.$route.params.setcode;
       if (setCode == null) return "afr";
       return setCode;

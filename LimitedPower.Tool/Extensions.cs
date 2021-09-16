@@ -6,8 +6,6 @@ namespace LimitedPower.Tool
 {
     public static class Extensions
     {
-        public static string GetParam(this string[] args, int index) => index >= args.Length ? string.Empty : args[index];
-
         public static string PrimarySet(this string sets) => sets.ToArray().First();
 
         public static string[] ToArray(this string sets) => sets.Split(',');

@@ -8,6 +8,7 @@ namespace LimitedPower.Core.RatingSources
     {
         protected override ReviewContributor[] ReviewContributors { get; set; } =
         {
+            // todo: remove?
             ReviewContributor.InfiniteMythicEditionJustLolaman,
             ReviewContributor.InfiniteMythicEditionM0bieus,
             ReviewContributor.InfiniteMythicEditionScottynada
