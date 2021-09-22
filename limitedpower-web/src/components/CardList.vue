@@ -105,7 +105,7 @@ export default {
             i.showBack = false;
             i.pathFront = require(`@/assets/img/set/${i.setCode}/${i.arenaId}-0.jpg`);
 
-            if (i.layout == "modal_dfc") {
+            if (i.layout == "modal_dfc" || i.layout == "transform") {
               i.pathBack = require(`@/assets/img/set/${i.setCode}/${i.arenaId}-1.jpg`);
             }
           });

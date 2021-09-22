@@ -4,10 +4,18 @@ namespace LimitedPower.Model
 {
     public static class ModelExtensions
     {
-        public static string GetSortedString(this List<string> list)
+        public static string GetSortedString(this ViewCard viewCard)
         {
-            list.Sort();
-            return string.Join("", list);
+            if (viewCard.Colors == null)
+            {
+                viewCard.ColorIdentity.Sort();
+                return string.Join("", viewCard.ColorIdentity);
+            }
+            else
+            {
+                viewCard.Colors.Sort();
+                return string.Join("", viewCard.Colors);
+            }
         }
 
         public static bool CanBeCastWithOnly(this Card card, string color)

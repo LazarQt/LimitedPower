@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using LimitedPower.Model;
 
 namespace LimitedPower.Core.RatingSources.InfiniteMythicEdition
@@ -28,6 +29,16 @@ namespace LimitedPower.Core.RatingSources.InfiniteMythicEdition
                 {ReviewContributor.InfiniteMythicEditionM0bieus, 1},
                 {ReviewContributor.InfiniteMythicEditionScottynada, 2}
             }, 3);
+        }
+
+        protected override string ModifySearchTerm(Card card)
+        {
+            if (card.Name.Contains("//"))
+            {
+                return card.Name.Substring(0, card.Name.IndexOf("//", StringComparison.Ordinal) - 1);
+            }
+
+            return base.ModifySearchTerm(card);
         }
     }
 }

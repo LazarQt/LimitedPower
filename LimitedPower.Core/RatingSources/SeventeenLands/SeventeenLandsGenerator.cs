@@ -43,6 +43,15 @@ namespace LimitedPower.Core.RatingSources.SeventeenLands
             return result;
         }
 
+        protected override string ModifySearchTerm(Card card)
+        {
+            if (card.Name.Contains("//"))
+            {
+                return card.Name.Substring(0, card.Name.IndexOf("//", StringComparison.Ordinal) - 1);
+            }
+
+            return base.ModifySearchTerm(card);
+        }
         protected override IRatingCalculator<double> CreateRatingCalculator() => new DoubleCalculator(_maxRating, _minRating);
 
         private List<SlCard> GetLatestRatings(DateTime today, int daysBack, int expectedCardCount)

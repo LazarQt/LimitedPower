@@ -1,6 +1,11 @@
 {
 	"Sets": [
 		{
+			"code": "mid",
+			"name": "Midnight Hunt",
+			"topcommons": "w,u,b,r,g,"
+		},
+		{
 			"code": "afr",
 			"name": "Forgotten Realms",
 			"topcommons": "w,u,b,r,g,"

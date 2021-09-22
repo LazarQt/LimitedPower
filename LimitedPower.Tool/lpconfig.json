@@ -1,5 +1,58 @@
 [
   {
+    "Set": "mid",
+    "ScryfallApiArgs": {
+      "PrintedSize": 267
+    },
+    "ParserConfigurations": [
+      {
+        "GeneratorName": "SeventeenLandsGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+        ]
+      },
+      {
+        "GeneratorName": "DraftaholicsAnonymousGenerator",
+        "CardNameSubstitutions": {
+          "Locked in the Cemetery": "Locked in the Cemetary",
+          "Nebelgast Intruder": "Neblegast Intruder"
+        },
+        "Args": [
+        ]
+      },
+      {
+        "GeneratorName": "DraftSimGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+          "MID/MID,MID/MID_common,MID/MID_uncommon,MID/MID_rare,MID/MID_mythic,MID/MID_flip,MID/MID_flip_common,MID/MID_flip_uncommon,MID/MID_flip_rare,MID/MID_flip_mythic"
+        ]
+      },
+      {
+        "GeneratorName": "InfiniteMythicEditionGenerator",
+        "CardNameSubstitutions": {
+
+        },
+        "Args": [
+          "1x2IFa2nYo-ws9xGuEdakH2-2PDlSvLdph9OLWU8lVzc",
+          "InfiniteMythicEdition",
+          "F23:I289"
+        ]
+      },
+      {
+        "GeneratorName": "DeathsieGenerator",
+        "CardNameSubstitutions": {
+        },
+        "Args": [
+          "1x2IFa2nYo-ws9xGuEdakH2-2PDlSvLdph9OLWU8lVzc",
+          "Deathsie",
+          "E23:G63,K23:M64,Q23:S65,W23:Y63,AC23:AE63,E75:G117,K75:M82,R75:S82"
+        ]
+      }
+    ]
+  },
+  {
     "Set": "akr",
     "ScryfallApiArgs": {
     },

@@ -23,9 +23,9 @@ namespace LimitedPower.Model
 
     public class ViewCard : Card
     {
-        public double LiveRating => Math.Round(Ratings
+        public double LiveRating => Ratings.Any(r => r.ReviewContributor == ReviewContributor.SeventeenLands) ? Math.Round(Ratings
             .Where(r => r.ReviewContributor == ReviewContributor.SeventeenLands)
-            .Average(x => x.Rating), 2);
+            .Average(x => x.Rating), 2) : default;
 
         public double InitialRating => CalculateInitialRating();
 

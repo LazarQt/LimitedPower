@@ -32,7 +32,7 @@ namespace LimitedPower.Core
                     Name = sourceCard.Name,
                     Rarity = sourceCard.Rarity,
                     SetCode = sourceCard.Set,
-                    ArenaId = sourceCard.ArenaId,
+                    ArenaId = sourceCard.MtgoId,
                     Keywords = sourceCard.Keywords,
                     ProducedMana = sourceCard.ProducedMana ?? new List<string>(),
                     Layout = sourceCard.Layout,
@@ -48,8 +48,8 @@ namespace LimitedPower.Core
                             ManaCost = cardFace.ManaCost,
                             Name = cardFace.Name,
                             OracleText = cardFace.OracleText,
-                            Power = Convert.ToInt32(cardFace.Power),
-                            Toughness = Convert.ToInt32(cardFace.Toughness),
+                            //Power = Convert.ToInt32(cardFace.Power),
+                            //Toughness = Convert.ToInt32(cardFace.Toughness),
                             TypeLine = cardFace.TypeLine
                         });
                     }
@@ -86,11 +86,11 @@ namespace LimitedPower.Core
                     {
                         if (sourceCard.CardFaces[i].ImageUris != null)
                         {
-                            results.Add($"{sourceCard.ArenaId}-{i}.jpg", GetImageBytes(sourceCard.CardFaces[i].ImageUris.Normal));
+                            results.Add($"{sourceCard.MtgoId}-{i}.jpg", GetImageBytes(sourceCard.CardFaces[i].ImageUris.Normal));
                         }
                         else
                         {
-                            results.Add($"{sourceCard.ArenaId}-{i}.jpg", GetImageBytes(sourceCard.ImageUris.Normal));
+                            results.Add($"{sourceCard.MtgoId}-{i}.jpg", GetImageBytes(sourceCard.ImageUris.Normal));
                             break;
                         }
 
@@ -98,7 +98,7 @@ namespace LimitedPower.Core
                 }
                 else
                 {
-                    results.Add($"{sourceCard.ArenaId}-0.jpg", GetImageBytes(sourceCard.ImageUris.Normal));
+                    results.Add($"{sourceCard.MtgoId}-0.jpg", GetImageBytes(sourceCard.ImageUris.Normal));
                 }
             }
 

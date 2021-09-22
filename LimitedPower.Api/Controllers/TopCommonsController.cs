@@ -41,7 +41,7 @@ namespace LimitedPower.Api.Controllers
                     colors = splitP[0];
                     take = Convert.ToInt32(splitP[1]);
                 }
-                var x = commons.Where(i => i.Colors.GetSortedString().ToLower() == string.Concat(colors.OrderBy(c => c)).ToLower());
+                var x = commons.Where(i => i.GetSortedString().ToLower() == string.Concat(colors.OrderBy(c => c)).ToLower());
                 bestCommons.AddRange(x.Take(take));
             }
             return bestCommons;

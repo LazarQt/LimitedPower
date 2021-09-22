@@ -46,6 +46,16 @@ namespace LimitedPower.Core.RatingSources.DraftaholicsAnonymous
             return result;
         }
 
+        protected override string ModifySearchTerm(Card card)
+        {
+            if (card.Name.Contains("//"))
+            {
+                return card.Name.Substring(0, card.Name.IndexOf("//", StringComparison.Ordinal) -1);
+            }
+
+            return base.ModifySearchTerm(card);
+        }
+
         protected override IRatingCalculator<int> CreateRatingCalculator() => new IntegerCalculator(_minRating, _maxRating);
     }
 }
