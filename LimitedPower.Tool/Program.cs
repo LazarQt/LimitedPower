@@ -10,7 +10,7 @@ using LimitedPower.Core.RatingSources.DraftSim;
 using LimitedPower.Core.RatingSources.InfiniteMythicEdition;
 using LimitedPower.Core.RatingSources.MtgaZone;
 using LimitedPower.Core.RatingSources.SeventeenLands;
-using LimitedPower.ScryfallLib;
+using LimitedPower.Remote;
 using Newtonsoft.Json;
 
 namespace LimitedPower.Tool

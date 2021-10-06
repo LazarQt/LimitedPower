@@ -6,13 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RestSharp" Version="106.12.0" />
+    <PackageReference Include="BetterConsoleTables" Version="1.1.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="customDraftRatingsForDisplay.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\LimitedPower.Companion\LimitedPower.Companion.csproj" />
   </ItemGroup>
 
 </Project>

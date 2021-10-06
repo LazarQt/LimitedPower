@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json;
+
 // ReSharper disable InconsistentNaming
 
-namespace LimitedPower.ScryfallLib.Model
+namespace LimitedPower.Remote.Model
 {
     public class Set
     {

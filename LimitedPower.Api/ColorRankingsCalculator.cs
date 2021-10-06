@@ -56,7 +56,7 @@ namespace LimitedPower.Api
 
         private Dictionary<string, List<ViewCard>> InitRanks()
         {
-            return new Dictionary<string, List<ViewCard>>()
+            return new()
             {
                 {"w", new List<ViewCard>()},
                 {"u", new List<ViewCard>()},

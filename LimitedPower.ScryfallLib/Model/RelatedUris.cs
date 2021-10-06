@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace LimitedPower.ScryfallLib.Model
+namespace LimitedPower.Remote.Model
 {
     public class RelatedUris
     {

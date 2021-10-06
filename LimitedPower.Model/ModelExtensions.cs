@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace LimitedPower.Model
+﻿namespace LimitedPower.Model
 {
     public static class ModelExtensions
     {

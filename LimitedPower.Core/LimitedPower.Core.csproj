@@ -5,12 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Apis.Sheets.v4" Version="1.51.0.2272" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\LimitedPower.Model\LimitedPower.Model.csproj" />
-    <ProjectReference Include="..\LimitedPower.ScryfallLib\LimitedPower.ScryfallLib.csproj" />
+    <ProjectReference Include="..\LimitedPower.ScryfallLib\LimitedPower.Remote.csproj" />
   </ItemGroup>
 
   <ItemGroup>

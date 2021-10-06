@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using LimitedPower.Model;
+using LimitedPower.Remote;
 
 namespace LimitedPower.Core.RatingSources
 {

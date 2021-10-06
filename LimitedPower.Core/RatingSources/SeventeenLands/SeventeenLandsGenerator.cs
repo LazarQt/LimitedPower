@@ -59,7 +59,7 @@ namespace LimitedPower.Core.RatingSources.SeventeenLands
             // load reviews from website
             using var client = new System.Net.WebClient();
             var lastWeek = today.AddDays(-daysBack);
-            var url = $"https://www.17lands.com/card_ratings/data?" +
+            var url = "https://www.17lands.com/card_ratings/data?" +
                       $"expansion={Set.ToUpper()}&format=PremierDraft&" +
                       $"start_date={lastWeek.Year}-{lastWeek.Month:00}-{lastWeek.Day:00}&end_date={today.Year}-{today.Month:00}-{today.Day:00}";
             var doc = client.DownloadString(Uri.EscapeUriString(url));

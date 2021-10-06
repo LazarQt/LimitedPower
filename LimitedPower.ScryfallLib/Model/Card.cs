@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace LimitedPower.ScryfallLib.Model
+namespace LimitedPower.Remote.Model
 {
     public class Card
     {

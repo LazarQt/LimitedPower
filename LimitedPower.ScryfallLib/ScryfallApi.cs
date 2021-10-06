@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LimitedPower.ScryfallLib.Model;
+using LimitedPower.Remote.Model;
 using Newtonsoft.Json;
 using RestSharp;
 
-namespace LimitedPower.ScryfallLib
+namespace LimitedPower.Remote
 {
     public class ScryfallApi
     {
         readonly RestClient _client = new RestClient("https://api.scryfall.com");
-        private Dictionary<string, object> Parameters { get; set; }
+        private Dictionary<string, object> Parameters { get; }
 
         public ScryfallApi(Dictionary<string, object> parameters = null)
         {
@@ -60,6 +60,7 @@ namespace LimitedPower.ScryfallLib
                     if (printedSize == 0 && set.Digital) printedSize = set.CardCount; // fallback for digital only sets
                     if (Parameters.ContainsKey("PrintedSize")) printedSize = Convert.ToInt32(Parameters["PrintedSize"]);
                     if (set.Digital && printedSize == 0) printedSize = set.CardCount;
+                    if (printedSize == 0) printedSize = set.CardCount;
                     if (!sourceCard.Booster || result.Any(o => o.Name == sourceCard.Name) || Convert.ToInt32(sourceCard.CollectorNumber) > printedSize)
                     {
                         continue;

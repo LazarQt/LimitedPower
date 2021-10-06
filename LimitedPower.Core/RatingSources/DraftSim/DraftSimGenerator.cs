@@ -11,7 +11,7 @@ namespace LimitedPower.Core.RatingSources.DraftSim
     {
         protected override ReviewContributor[] ReviewContributors { get; set; } = { ReviewContributor.DraftSim };
 
-        private string[] UrlParts { get; set; }
+        private string[] UrlParts { get; }
         private double _minRating;
         private double _maxRating;
 

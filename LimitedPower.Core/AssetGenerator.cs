@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using LimitedPower.Model;
-using LimitedPower.ScryfallLib;
+using LimitedPower.Remote;
 using RestSharp;
 
 namespace LimitedPower.Core
 {
     public class AssetGenerator
     {
-        private ScryfallApi ScryfallApi { get; set; }
+        private ScryfallApi ScryfallApi { get; }
 
         public AssetGenerator(ScryfallApi scryfallApi)
         {
