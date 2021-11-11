@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LimitedPower.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -11,7 +10,7 @@ namespace LimitedPower.Core.RatingSources.DraftSim
     {
         protected override ReviewContributor[] ReviewContributors { get; set; } = { ReviewContributor.DraftSim };
 
-        private string[] UrlParts { get; set; }
+        private string[] UrlParts { get; }
         private double _minRating;
         private double _maxRating;
 
@@ -29,6 +28,9 @@ namespace LimitedPower.Core.RatingSources.DraftSim
             {
                 cardRatings.AddRange(RetrieveDraftSimData(url));
             }
+
+            // remove duplicates 
+            cardRatings = cardRatings.GroupBy(x => x.Name).Select(x => x.First()).ToList();
 
             // SPECIAL CASE: remove some lands, might implement ignore list later
             var ignore = new List<string> {
@@ -58,6 +60,16 @@ namespace LimitedPower.Core.RatingSources.DraftSim
             _maxRating = orderedResults.First().MyRating;
 
             return result;
+        }
+
+        protected override string ModifySearchTerm(Card card)
+        {
+            if (card.Name.Contains("//"))
+            {
+                return card.Name.Substring(0, card.Name.IndexOf("//", StringComparison.Ordinal) - 1);
+            }
+
+            return base.ModifySearchTerm(card);
         }
 
         private List<DraftSimData> RetrieveDraftSimData(string url)

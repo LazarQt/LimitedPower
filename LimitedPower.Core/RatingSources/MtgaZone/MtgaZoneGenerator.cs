@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LimitedPower.Model;
 
 namespace LimitedPower.Core.RatingSources.MtgaZone
 {

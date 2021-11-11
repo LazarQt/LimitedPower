@@ -20,40 +20,40 @@ namespace LimitedPower.Core.RatingSources.SeventeenLands
         public int GameCount { get; set; }
 
         [JsonProperty("win_rate")]
-        public double WinRate { get; set; }
+        public double? WinRate { get; set; }
 
         [JsonProperty("sideboard_game_count")]
         public int SideboardGameCount { get; set; }
 
         [JsonProperty("sideboard_win_rate")]
-        public double SideboardWinRate { get; set; }
+        public double? SideboardWinRate { get; set; }
 
         [JsonProperty("opening_hand_game_count")]
         public int OpeningHandGameCount { get; set; }
 
         [JsonProperty("opening_hand_win_rate")]
-        public double OpeningHandWinRate { get; set; }
+        public double? OpeningHandWinRate { get; set; }
 
         [JsonProperty("drawn_game_count")]
         public int DrawnGameCount { get; set; }
 
         [JsonProperty("drawn_win_rate")]
-        public double DrawnWinRate { get; set; }
+        public double? DrawnWinRate { get; set; }
 
         [JsonProperty("ever_drawn_game_count")]
         public int EverDrawnGameCount { get; set; }
 
         [JsonProperty("ever_drawn_win_rate")]
-        public double EverDrawnWinRate { get; set; }
+        public double? EverDrawnWinRate { get; set; }
 
         [JsonProperty("never_drawn_game_count")]
         public int NeverDrawnGameCount { get; set; }
 
         [JsonProperty("never_drawn_win_rate")]
-        public double NeverDrawnWinRate { get; set; }
+        public double? NeverDrawnWinRate { get; set; }
 
         [JsonProperty("drawn_improvement_win_rate")]
-        public double DrawnImprovementWinRate { get; set; }
+        public double? DrawnImprovementWinRate { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }

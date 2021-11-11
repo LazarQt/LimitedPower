@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using LimitedPower.Model;
+﻿using System;
+using System.Collections.Generic;
 
 namespace LimitedPower.Core.RatingSources.Deathsie
 {
@@ -12,6 +12,15 @@ namespace LimitedPower.Core.RatingSources.Deathsie
         protected override IRatingCalculator<string> CreateRatingCalculator() =>
             new RatingTransformer(new[] { "F", "D", "C", "B", "A", "S" });
 
+        protected override string ModifySearchTerm(Card card)
+        {
+            if (card.Name.Contains("//"))
+            {
+                return card.Name.Substring(0, card.Name.IndexOf("//", StringComparison.Ordinal) - 1);
+            }
+
+            return base.ModifySearchTerm(card);
+        }
 
         protected override List<RawRating<string>> GetRawRatings()
         {

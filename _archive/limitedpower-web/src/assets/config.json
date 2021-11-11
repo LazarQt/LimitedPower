@@ -1,0 +1,54 @@
+{
+	"Sets": [
+		{
+			"code": "mid",
+			"name": "Midnight Hunt",
+			"topcommons": "w,u,b,r,g,"
+		},
+		{
+			"code": "afr",
+			"name": "Forgotten Realms",
+			"topcommons": "w,u,b,r,g,"
+		},
+		{
+			"code": "stx",
+			"name": "Strixhaven",
+			"topcommons": "w,u,b,r,g,wr,ur,ug,wb,gb,"
+		},
+		{
+			"code": "khm",
+			"name": "Kaldheim",
+			"topcommons": "w,u,b,r,g,"
+		},
+		{
+			"code": "znr",
+			"name": "Zendikar Rising",
+			"topcommons": "w,u,b,r,g,"
+		},
+		{
+			"code": "war",
+			"name": "War of the Spark",
+			"topcommons": "w,u,b,r,g,"
+		},
+		{
+			"code": "rna",
+			"name": "Ravnica Allegiance",
+			"topcommons": "w,u,b,r,g,gr-3,wb-3,ug-3,rb-3,uw-3,"
+		},
+		{
+			"code": "grn",
+			"name": "Guilds of Ravnica",
+			"topcommons": "w,u,b,r,g,wr,ub-3,gw-3,bg-3,ur-3,"
+		},
+		{
+			"code": "dom",
+			"name": "Dominaria",
+			"topcommons": "w,u,b,r,g,"
+		},
+		{
+			"code": "akr",
+			"name": "Amonkhet Remastered",
+			"topcommons": "w,u,b,r,g,"
+		}
+	]
+}

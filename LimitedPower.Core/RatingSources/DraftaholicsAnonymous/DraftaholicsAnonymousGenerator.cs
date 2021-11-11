@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LimitedPower.Model;
 using Newtonsoft.Json;
 
 namespace LimitedPower.Core.RatingSources.DraftaholicsAnonymous
@@ -44,6 +43,16 @@ namespace LimitedPower.Core.RatingSources.DraftaholicsAnonymous
             _maxRating = orderedResults.First().Elo;
 
             return result;
+        }
+
+        protected override string ModifySearchTerm(Card card)
+        {
+            if (card.Name.Contains("//"))
+            {
+                return card.Name.Substring(0, card.Name.IndexOf("//", StringComparison.Ordinal) -1);
+            }
+
+            return base.ModifySearchTerm(card);
         }
 
         protected override IRatingCalculator<int> CreateRatingCalculator() => new IntegerCalculator(_minRating, _maxRating);

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using LimitedPower.Model;
+using LimitedPower.Remote;
 
 namespace LimitedPower.Core.RatingSources
 {
@@ -8,6 +8,7 @@ namespace LimitedPower.Core.RatingSources
     {
         protected override ReviewContributor[] ReviewContributors { get; set; } =
         {
+            // todo: remove?
             ReviewContributor.InfiniteMythicEditionJustLolaman,
             ReviewContributor.InfiniteMythicEditionM0bieus,
             ReviewContributor.InfiniteMythicEditionScottynada
@@ -30,6 +31,8 @@ namespace LimitedPower.Core.RatingSources
             var result = new List<RawRating<string>>();
             foreach (var r in rawRatings)
             {
+                // in older reviews there were fewer people, todo: fix permanently?
+                if (nameIndex >= r.Count) continue;
                 var cardName = (string)r[nameIndex];
                 foreach (var contributor in contributors)
                 {
@@ -44,7 +47,8 @@ namespace LimitedPower.Core.RatingSources
             return result;
         }
 
-        protected List<List<object>> GetRows() => new GoogleDocsHelper().GetRows(SpreadsheetId, SpreadsheetRanges.Select(r => $"{SpreadsheetName}!{r}").ToArray());
+        //protected List<List<object>> GetRows() => new GoogleDocsHelper(SpreadsheetId).GetRows(SpreadsheetRanges.Select(r => $"{SpreadsheetName}!{r}").ToArray());
+        protected List<List<object>> GetRows() => new List<List<object>>();
 
         protected abstract override IRatingCalculator<string> CreateRatingCalculator();
 

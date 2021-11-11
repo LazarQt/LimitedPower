@@ -1,6 +1,4 @@
-﻿using LimitedPower.Model;
-
-namespace LimitedPower.Core.RatingSources
+﻿namespace LimitedPower.Core.RatingSources
 {
     public class RawRating<T>
     {

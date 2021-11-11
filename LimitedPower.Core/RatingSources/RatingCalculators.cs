@@ -39,7 +39,7 @@ namespace LimitedPower.Core.RatingSources
     public class RatingTransformer : IRatingCalculator<string>
     {
         private List<string> Ratings { get; }
-            
+
         public RatingTransformer(string[] ratingsFromWorstToBest)
         {
             Ratings = ratingsFromWorstToBest.ToList();

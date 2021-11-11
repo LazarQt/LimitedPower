@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace LimitedPower.ScryfallLib.Model
+namespace LimitedPower.Remote.Model
 {
     class CardsSearch
     {
@@ -18,6 +18,6 @@ namespace LimitedPower.ScryfallLib.Model
         public string NextPage { get; set; }
 
         [JsonProperty("data")]
-        public List<Card> Data { get; set; }
+        public List<ScryfallCard> Data { get; set; }
     }
 }

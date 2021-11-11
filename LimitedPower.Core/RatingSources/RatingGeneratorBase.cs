@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using LimitedPower.Core.Extensions;
-using LimitedPower.Model;
 using Newtonsoft.Json;
 
 namespace LimitedPower.Core.RatingSources
@@ -33,7 +32,7 @@ namespace LimitedPower.Core.RatingSources
 
         protected abstract List<RawRating<T>> GetRawRatings();
 
-        protected virtual string ModifySearchTerm(string term) => term.StripBacksideName();
+        protected virtual string ModifySearchTerm(Card card) => card.Layout == "modal_dfc" ? card.Name.StripBacksideName() : card.Name;
 
         protected virtual string SanitizeReviewCard(string cardName) => cardName
             .Trim()
@@ -43,14 +42,14 @@ namespace LimitedPower.Core.RatingSources
         public void Process()
         {
             // load cards
-            var cards = JsonConvert.DeserializeObject<List<Card>>(File.ReadAllText(SetFile));
+            var cards = GetCardsFile();
             if (cards == null)
             {
                 throw new Exception($"could not load file {SetFile}");
             }
 
             // remove old ratings
-            cards.ForEach(c => c.Ratings.RemoveAll(r => ReviewContributors.Contains(r.ReviewContributor)));
+            cards.ForEach(c => c.Ratings?.RemoveAll(r => ReviewContributors.Contains(r.ReviewContributor)));
 
             // get raw ratings
             var rawRatings = GetRawRatings();
@@ -62,14 +61,15 @@ namespace LimitedPower.Core.RatingSources
             foreach (var card in cards)
             {
                 // setup search term + remove white spaces
-                var searchTerm = ModifySearchTerm(card.Name);
+                var searchTerm = ModifySearchTerm(card);
                 // substitute if any
-                if (CardNameSubstitutions.ContainsKey(searchTerm))
+                if (CardNameSubstitutions != null && CardNameSubstitutions.ContainsKey(searchTerm))
                 {
                     searchTerm = CardNameSubstitutions[searchTerm];
                 }
 
-                var cardRatings = rawRatings.Where(c => c.CardName.ToLower() == searchTerm.ToLower()).ToList();
+                var cardRatings = rawRatings.Where(c => c.CardName.ToLower() == searchTerm.ToLower()
+                                                        || c.CardName.ToLower() == searchTerm.ToLower().Replace("// ", "")).ToList();
                 foreach (var cardRating in cardRatings)
                 {
                     card.Ratings.Add(new LimitedPowerRating(ratingCalculator.Calculate(cardRating.RawValue), string.Empty, cardRating.ReviewContributor));
@@ -86,5 +86,8 @@ namespace LimitedPower.Core.RatingSources
             // write ratings back to original file
             File.WriteAllText(SetFile, JsonConvert.SerializeObject(cards));
         }
+
+        protected List<Card> GetCardsFile() => JsonConvert.DeserializeObject<List<Card>>(File.ReadAllText(SetFile));
+
     }
 }
