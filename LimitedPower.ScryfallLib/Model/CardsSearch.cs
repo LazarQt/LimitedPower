@@ -18,6 +18,6 @@ namespace LimitedPower.Remote.Model
         public string NextPage { get; set; }
 
         [JsonProperty("data")]
-        public List<Card> Data { get; set; }
+        public List<ScryfallCard> Data { get; set; }
     }
 }

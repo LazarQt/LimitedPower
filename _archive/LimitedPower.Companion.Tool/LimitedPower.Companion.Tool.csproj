@@ -9,8 +9,4 @@
     <PackageReference Include="BetterConsoleTables" Version="1.1.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\LimitedPower.Companion\LimitedPower.Companion.csproj" />
-  </ItemGroup>
-
 </Project>

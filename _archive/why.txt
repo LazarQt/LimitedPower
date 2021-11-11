@@ -1,0 +1,4 @@
+you might be wondering, why is there an archive directory with files that are no longer used when git has a perfectly fine historization functionality?
+simply to look good, if someone glances over this repository they might think "damn this dude really a great programmer"
+
+that's it, now move along

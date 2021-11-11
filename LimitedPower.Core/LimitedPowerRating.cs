@@ -1,4 +1,4 @@
-namespace LimitedPower.Model
+namespace LimitedPower.Core
 {
     public class LimitedPowerRating
     {

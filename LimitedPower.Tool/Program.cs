@@ -12,18 +12,20 @@ using LimitedPower.Core.RatingSources.MtgaZone;
 using LimitedPower.Core.RatingSources.SeventeenLands;
 using LimitedPower.Remote;
 using Newtonsoft.Json;
+using System.Configuration;
+using LimitedPower.Remote.Model;
 
 namespace LimitedPower.Tool
 {
     class Program
     {
         // fixed values
-        static string rootPath = @"C:\dev\out";
+        private static readonly string RootPath = ConfigurationManager.AppSettings[Const.Settings.OutPath];
 
         static void Main()
         {
             // default settings
-            Console.WriteLine($"default out: {rootPath}");
+            Console.WriteLine($"default out path: {RootPath}");
             Console.WriteLine();
 
             // commands
@@ -35,7 +37,7 @@ namespace LimitedPower.Tool
             Console.WriteLine("----------------");
 
             // load config
-            var lpConfigs = JsonConvert.DeserializeObject<List<LimitedPowerConfig>>(File.ReadAllText("lpconfig.json"));
+            var lpConfigs = JsonConvert.DeserializeObject<List<LimitedPowerConfig>>(File.ReadAllText(ConfigurationManager.AppSettings[Const.Settings.SetConfig]));
 
             // process commands
             while (true)
@@ -73,9 +75,9 @@ namespace LimitedPower.Tool
 
         private static void LoadImages(LimitedPowerConfig lpConfig)
         {
-            var imgDirectory = Path.Combine(rootPath, lpConfig.Set.PrimarySet());
+            var imgDirectory = Path.Combine(RootPath, lpConfig.Set.PrimarySet());
             if (!Directory.Exists(imgDirectory)) Directory.CreateDirectory(imgDirectory);
-            foreach (var img in new AssetGenerator(new ScryfallApi(lpConfig.ScryfallApiArgs)).DownloadSetImages(lpConfig.Set.ToArray()))
+            foreach (var img in new AssetGenerator(new ScryfallApi(lpConfig.ScryfallApiArgs)).DownloadSetImagesByName(lpConfig.Set.ToArray()))
             {
                 // save
                 var file = Path.Combine(imgDirectory, img.Key);
@@ -90,7 +92,7 @@ namespace LimitedPower.Tool
             }
         }
 
-        private static void LoadCards(LimitedPowerConfig lpConfig) => File.WriteAllText(Path.Combine(rootPath, $"{lpConfig.Set.PrimarySet()}.json"),
+        private static void LoadCards(LimitedPowerConfig lpConfig) => File.WriteAllText(Path.Combine(RootPath, $"{lpConfig.Set.PrimarySet()}.json"),
             JsonConvert.SerializeObject(new AssetGenerator(new ScryfallApi(lpConfig.ScryfallApiArgs)).GenerateSetJson(lpConfig.Set.ToArray())));
 
         private static void LoadRatings(LimitedPowerConfig lpConfig)
@@ -100,22 +102,22 @@ namespace LimitedPower.Tool
                 switch (p.GeneratorName)
                 {
                     case nameof(SeventeenLandsGenerator):
-                        new SeventeenLandsGenerator(rootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions).Process();
+                        new SeventeenLandsGenerator(RootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions).Process();
                         break;
                     case nameof(DraftaholicsAnonymousGenerator):
-                        new DraftaholicsAnonymousGenerator(rootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions).Process();
+                        new DraftaholicsAnonymousGenerator(RootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions).Process();
                         break;
                     case nameof(DraftSimGenerator):
-                        new DraftSimGenerator(rootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
+                        new DraftSimGenerator(RootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
                         break;
                     case nameof(InfiniteMythicEditionGenerator):
-                        new InfiniteMythicEditionGenerator(rootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
+                        new InfiniteMythicEditionGenerator(RootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
                         break;
                     case nameof(DeathsieGenerator):
-                        new DeathsieGenerator(rootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
+                        new DeathsieGenerator(RootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
                         break;
                     case nameof(MtgaZoneGenerator):
-                        new MtgaZoneGenerator(rootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
+                        new MtgaZoneGenerator(RootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
                         break;
                 }
             }

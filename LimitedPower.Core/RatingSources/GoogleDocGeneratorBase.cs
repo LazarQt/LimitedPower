@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using LimitedPower.Model;
 using LimitedPower.Remote;
 
 namespace LimitedPower.Core.RatingSources
@@ -48,7 +47,8 @@ namespace LimitedPower.Core.RatingSources
             return result;
         }
 
-        protected List<List<object>> GetRows() => new GoogleDocsHelper().GetRows(SpreadsheetId, SpreadsheetRanges.Select(r => $"{SpreadsheetName}!{r}").ToArray());
+        //protected List<List<object>> GetRows() => new GoogleDocsHelper(SpreadsheetId).GetRows(SpreadsheetRanges.Select(r => $"{SpreadsheetName}!{r}").ToArray());
+        protected List<List<object>> GetRows() => new List<List<object>>();
 
         protected abstract override IRatingCalculator<string> CreateRatingCalculator();
 

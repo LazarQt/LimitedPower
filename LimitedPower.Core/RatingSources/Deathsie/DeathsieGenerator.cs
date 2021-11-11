@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using LimitedPower.Model;
 
 namespace LimitedPower.Core.RatingSources.Deathsie
 {

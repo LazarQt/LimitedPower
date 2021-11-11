@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace LimitedPower.Remote.Model
 {
-    public class Card
+    public class ScryfallCard
     {
         [JsonProperty("object")] public string Object { get; set; }
 

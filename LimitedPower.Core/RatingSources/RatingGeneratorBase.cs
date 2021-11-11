@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using LimitedPower.Core.Extensions;
-using LimitedPower.Model;
 using Newtonsoft.Json;
 
 namespace LimitedPower.Core.RatingSources

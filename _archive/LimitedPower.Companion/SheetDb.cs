@@ -13,7 +13,7 @@ namespace LimitedPower.Companion
 
         public Draft CurrentDraft => Drafts.Last();
 
-        private string spreadsheetId = "1hGSIZIm38Pg6rBczlnIpNLdI5gtxuQ9H69MqBpXsWEs";
+        private string spreadsheetId = "???";
 
         private GoogleDocsHelper googleDocsHelper;
 
