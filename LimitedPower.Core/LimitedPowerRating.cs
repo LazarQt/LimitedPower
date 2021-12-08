@@ -19,12 +19,10 @@ namespace LimitedPower.Core
         // ReSharper disable InconsistentNaming
         DraftaholicsAnonymous,
         DraftSim,
-        InfiniteMythicEditionJustLolaman,
-        InfiniteMythicEditionM0bieus,
-        InfiniteMythicEditionScottynada,
+        Lolaman,
+        Ham,
+        Scottynada,
         Deathsie,
-        Drifter,
-        Raszero,
         SeventeenLands,
         // ReSharper restore InconsistentNaming
     }

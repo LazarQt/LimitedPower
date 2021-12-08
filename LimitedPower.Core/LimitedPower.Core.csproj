@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="RatingSources\SeventeenLands\SeventeenLandsGenerator.cs" />
+    <Compile Remove="RatingSources\SeventeenLands\SlCard.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="RatingSources\SeventeenLands\SeventeenLandsGenerator.cs" />
+    <None Include="RatingSources\SeventeenLands\SlCard.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\LimitedPower.ScryfallLib\LimitedPower.Remote.csproj" />
   </ItemGroup>
 

@@ -8,12 +8,9 @@ using LimitedPower.Core.RatingSources.Deathsie;
 using LimitedPower.Core.RatingSources.DraftaholicsAnonymous;
 using LimitedPower.Core.RatingSources.DraftSim;
 using LimitedPower.Core.RatingSources.InfiniteMythicEdition;
-using LimitedPower.Core.RatingSources.MtgaZone;
-using LimitedPower.Core.RatingSources.SeventeenLands;
 using LimitedPower.Remote;
 using Newtonsoft.Json;
 using System.Configuration;
-using LimitedPower.Remote.Model;
 
 namespace LimitedPower.Tool
 {
@@ -101,23 +98,17 @@ namespace LimitedPower.Tool
             {
                 switch (p.GeneratorName)
                 {
-                    case nameof(SeventeenLandsGenerator):
-                        new SeventeenLandsGenerator(RootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions).Process();
-                        break;
                     case nameof(DraftaholicsAnonymousGenerator):
-                        new DraftaholicsAnonymousGenerator(RootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions).Process();
+                        //new DraftaholicsAnonymousGenerator(RootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions).Process();
                         break;
                     case nameof(DraftSimGenerator):
-                        new DraftSimGenerator(RootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
+                        //new DraftSimGenerator(RootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
                         break;
                     case nameof(InfiniteMythicEditionGenerator):
-                        new InfiniteMythicEditionGenerator(RootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
+                        //new InfiniteMythicEditionGenerator(RootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
                         break;
                     case nameof(DeathsieGenerator):
                         new DeathsieGenerator(RootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
-                        break;
-                    case nameof(MtgaZoneGenerator):
-                        new MtgaZoneGenerator(RootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
                         break;
                 }
             }

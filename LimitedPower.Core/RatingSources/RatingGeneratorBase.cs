@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using LimitedPower.Core.Extensions;
 using Newtonsoft.Json;
 
@@ -39,6 +40,21 @@ namespace LimitedPower.Core.RatingSources
             .Replace('_', ' ')
             .Replace("’", "'");
 
+        // processing
+
+        public List<string> GetCsv(string url)
+        {
+            var req = (HttpWebRequest)WebRequest.Create(url);
+            var resp = (HttpWebResponse)req.GetResponse();
+
+            var sr = new StreamReader(resp.GetResponseStream() ?? throw new InvalidOperationException());
+            var results = sr.ReadToEnd();
+            sr.Close();
+
+            return results.Replace("\r\n", string.Empty).Replace("\"", "").Split(",").ToList();
+        }
+
+
         public void Process()
         {
             // load cards
@@ -72,6 +88,7 @@ namespace LimitedPower.Core.RatingSources
                                                         || c.CardName.ToLower() == searchTerm.ToLower().Replace("// ", "")).ToList();
                 foreach (var cardRating in cardRatings)
                 {
+                    card.Ratings ??= new List<LimitedPowerRating>();
                     card.Ratings.Add(new LimitedPowerRating(ratingCalculator.Calculate(cardRating.RawValue), string.Empty, cardRating.ReviewContributor));
                 }
 
@@ -86,7 +103,7 @@ namespace LimitedPower.Core.RatingSources
             // write ratings back to original file
             File.WriteAllText(SetFile, JsonConvert.SerializeObject(cards));
         }
-
+            
         protected List<Card> GetCardsFile() => JsonConvert.DeserializeObject<List<Card>>(File.ReadAllText(SetFile));
 
     }

@@ -5,17 +5,8 @@
     },
     "ParserConfigurations": [
       {
-        "GeneratorName": "SeventeenLandsGenerator",
-        "CardNameSubstitutions": {
-        },
-        "Args": [
-        ]
-      },
-      {
         "GeneratorName": "DraftaholicsAnonymousGenerator",
         "CardNameSubstitutions": {
-          "Locked in the Cemetery": "Locked in the Cemetary",
-          "Nebelgast Intruder": "Neblegast Intruder"
         },
         "Args": [
         ]
@@ -25,7 +16,7 @@
         "CardNameSubstitutions": {
         },
         "Args": [
-          "MID/MID,MID/MID_common,MID/MID_uncommon,MID/MID_rare,MID/MID_mythic,MID/MID_flip,MID/MID_flip_common,MID/MID_flip_uncommon,MID/MID_flip_rare,MID/MID_flip_mythic"
+          "VOW/VOW,VOW/VOW_common,VOW/VOW_uncommon,VOW/VOW_rare,VOW/VOW_mythic,VOW/VOW_flip,VOW/VOW_flip_common,VOW/VOW_flip_uncommon,VOW/VOW_flip_rare,VOW/VOW_flip_mythic"
         ]
       },
       {
@@ -34,9 +25,7 @@
 
         },
         "Args": [
-          "1x2IFa2nYo-ws9xGuEdakH2-2PDlSvLdph9OLWU8lVzc",
-          "InfiniteMythicEdition",
-          "F23:I289"
+          "https://docs.google.com/spreadsheets/d/e/2PACX-1vSe4BeYjMqeSYYomoouE3ugsqg3Gfe32NB_BlJEd0ex57fMuSxvsTdoWJLYxF9eYQbdJXS82_4cr5eQ/pubhtml#"
         ]
       },
       {
@@ -44,9 +33,7 @@
         "CardNameSubstitutions": {
         },
         "Args": [
-          "1x2IFa2nYo-ws9xGuEdakH2-2PDlSvLdph9OLWU8lVzc",
-          "Deathsie",
-          "E23:G63,K23:M64,Q23:S65,W23:Y63,AC23:AE63,E75:G117,K75:M82,R75:S82"
+          "https://docs.google.com/spreadsheets/d/e/2PACX-1vR1eo40sfGoZ-MLxXZsGRHEeAWlKBHYxLFGbTY64l0ZFmsXN25iXOHRYvN7Dt4AsCalgj_RK7KAMr9G/pubhtml#"
         ]
       }
     ]
