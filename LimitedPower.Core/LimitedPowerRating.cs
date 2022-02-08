@@ -22,8 +22,7 @@ namespace LimitedPower.Core
         Lolaman,
         Ham,
         Scottynada,
-        Deathsie,
-        SeventeenLands,
+        Deathsie
         // ReSharper restore InconsistentNaming
     }
 }

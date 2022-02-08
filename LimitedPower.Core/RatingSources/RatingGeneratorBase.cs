@@ -33,8 +33,6 @@ namespace LimitedPower.Core.RatingSources
 
         protected abstract List<RawRating<T>> GetRawRatings();
 
-        protected virtual string ModifySearchTerm(Card card) => card.Layout == "modal_dfc" ? card.Name.StripBacksideName() : card.Name;
-
         protected virtual string SanitizeReviewCard(string cardName) => cardName
             .Trim()
             .Replace('_', ' ')
@@ -42,7 +40,7 @@ namespace LimitedPower.Core.RatingSources
 
         // processing
 
-        public List<string> GetCsv(string url)
+        public List<string> GetCsv(string url, List<string> cardsWithCommas)
         {
             var req = (HttpWebRequest)WebRequest.Create(url);
             var resp = (HttpWebResponse)req.GetResponse();
@@ -50,6 +48,17 @@ namespace LimitedPower.Core.RatingSources
             var sr = new StreamReader(resp.GetResponseStream() ?? throw new InvalidOperationException());
             var results = sr.ReadToEnd();
             sr.Close();
+
+            var dict = new Dictionary<string, string>();
+            foreach (var c in cardsWithCommas)
+            {
+                dict.Add(c, c.Replace(",", string.Empty));
+            }
+
+            foreach (var d in dict)
+            {
+                results = results.Replace(d.Key, d.Value);
+            }
 
             return results.Replace("\r\n", string.Empty).Replace("\"", "").Split(",").ToList();
         }
@@ -59,7 +68,7 @@ namespace LimitedPower.Core.RatingSources
         {
             // load cards
             var cards = GetCardsFile();
-            if (cards == null)
+            if (cards == null || !cards.Any())
             {
                 throw new Exception($"could not load file {SetFile}");
             }
@@ -68,24 +77,20 @@ namespace LimitedPower.Core.RatingSources
             cards.ForEach(c => c.Ratings?.RemoveAll(r => ReviewContributors.Contains(r.ReviewContributor)));
 
             // get raw ratings
-            var rawRatings = GetRawRatings();
-            // trim excess whitespace
+            var rawRatings = GetRawRatings().OrderBy(o => o.CardName).ToList();
+            
+            // trim excess whitespace1
             rawRatings.ForEach(x => x.CardName = SanitizeReviewCard(x.CardName));
 
             // add new ratings
             var ratingCalculator = CreateRatingCalculator();
             foreach (var card in cards)
             {
-                // setup search term + remove white spaces
-                var searchTerm = ModifySearchTerm(card);
-                // substitute if any
-                if (CardNameSubstitutions != null && CardNameSubstitutions.ContainsKey(searchTerm))
-                {
-                    searchTerm = CardNameSubstitutions[searchTerm];
-                }
+                // setup search term with levenshtein algorithm 
+                var distanceIndex = rawRatings.Select(c => c.CardName).Distinct().DistanceIndex(card.Name);
+                var searchTerm = rawRatings[distanceIndex].CardName;
 
-                var cardRatings = rawRatings.Where(c => c.CardName.ToLower() == searchTerm.ToLower()
-                                                        || c.CardName.ToLower() == searchTerm.ToLower().Replace("// ", "")).ToList();
+                var cardRatings = rawRatings.Where(c => c.CardName.ToLower() == searchTerm.ToLower()).ToList();
                 foreach (var cardRating in cardRatings)
                 {
                     card.Ratings ??= new List<LimitedPowerRating>();
@@ -103,8 +108,10 @@ namespace LimitedPower.Core.RatingSources
             // write ratings back to original file
             File.WriteAllText(SetFile, JsonConvert.SerializeObject(cards));
         }
-            
-        protected List<Card> GetCardsFile() => JsonConvert.DeserializeObject<List<Card>>(File.ReadAllText(SetFile));
+
+        protected List<Card> GetCardsFile() =>
+            (JsonConvert.DeserializeObject<List<Card>>(File.ReadAllText(SetFile)) ?? new List<Card>())
+            .Where(c => !c.IsBasic()).ToList();
 
     }
 }

@@ -1,6 +1,6 @@
 [
   {
-    "Set": "vow",
+    "Set": "neo",
     "ScryfallApiArgs": {
     },
     "ParserConfigurations": [
@@ -16,7 +16,7 @@
         "CardNameSubstitutions": {
         },
         "Args": [
-          "VOW/VOW,VOW/VOW_common,VOW/VOW_uncommon,VOW/VOW_rare,VOW/VOW_mythic,VOW/VOW_flip,VOW/VOW_flip_common,VOW/VOW_flip_uncommon,VOW/VOW_flip_rare,VOW/VOW_flip_mythic"
+          "NEO/NEO,NEO/NEO_common,NEO/NEO_uncommon,NEO/NEO_rare,NEO/NEO_mythic,NEO/NEO_flip,NEO/NEO_flip_common,NEO/NEO_flip_uncommon,NEO/NEO_flip_rare,NEO/NEO_flip_mythic"
         ]
       },
       {
@@ -33,7 +33,7 @@
         "CardNameSubstitutions": {
         },
         "Args": [
-          "https://docs.google.com/spreadsheets/d/e/2PACX-1vR1eo40sfGoZ-MLxXZsGRHEeAWlKBHYxLFGbTY64l0ZFmsXN25iXOHRYvN7Dt4AsCalgj_RK7KAMr9G/pubhtml#"
+          "https://docs.google.com/spreadsheets/d/e/2PACX-1vQYHrBvWLZLWtkLwdFmLwA7rDWwtpwK-i641rC5PaDP6hXNt7ECsw3HTH5S0VVwxE2SQ_kD7_bNA1Kk/pubhtml#"
         ]
       }
     ]

@@ -62,16 +62,6 @@ namespace LimitedPower.Core.RatingSources.DraftSim
             return result;
         }
 
-        protected override string ModifySearchTerm(Card card)
-        {
-            if (card.Name.Contains("//"))
-            {
-                return card.Name.Substring(0, card.Name.IndexOf("//", StringComparison.Ordinal) - 1);
-            }
-
-            return base.ModifySearchTerm(card);
-        }
-
         private List<DraftSimData> RetrieveDraftSimData(string url)
         {
             string doc;

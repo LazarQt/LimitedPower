@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using LimitedPower.Remote;
 using LimitedPower.Remote.Model;
 using RestSharp;
@@ -24,6 +25,9 @@ namespace LimitedPower.Core
             var results = new Dictionary<string, byte[]>();
             foreach (var sourceCard in sourceCards)
             {
+#if DEBUG
+                Console.WriteLine($"Getting image for {sourceCard.Name}");
+#endif
                 if (sourceCard.CardFaces != null)
                 {
                     foreach (var t in sourceCard.CardFaces)
@@ -48,6 +52,13 @@ namespace LimitedPower.Core
             return results;
         }
 
-        private byte[] GetImageBytes(string imgUrl) => new RestClient(imgUrl).DownloadData(new RestRequest("#", Method.GET));
+        private byte[] GetImageBytes(string imgUrl)
+        {
+#if DEBUG
+            Console.WriteLine($"Downloading {imgUrl}");
+#endif
+            return new RestClient(imgUrl).DownloadData(new RestRequest("#", Method.GET));
+        }
+
     }
 }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
+using LimitedPower.Core.Extensions;
 
 namespace LimitedPower.Core.RatingSources.InfiniteMythicEdition
 {
@@ -10,13 +8,13 @@ namespace LimitedPower.Core.RatingSources.InfiniteMythicEdition
     {
         protected override ReviewContributor[] ReviewContributors { get; set; } = { ReviewContributor.Lolaman, ReviewContributor.Ham, ReviewContributor.Scottynada };
 
-        private string GoogleSheet;
+        private readonly string _googleSheet;
 
         public InfiniteMythicEditionGenerator(string basePath, string set,
             Dictionary<string, string> cardNameSubstitutions, string[] args) : base(basePath, set,
             cardNameSubstitutions)
         {
-            GoogleSheet = args[0];
+            _googleSheet = args[0];
         }
 
         protected override IRatingCalculator<string> CreateRatingCalculator() =>
@@ -25,10 +23,11 @@ namespace LimitedPower.Core.RatingSources.InfiniteMythicEdition
         protected override List<RawRating<string>> GetRawRatings()
         {
             var result = new List<RawRating<string>>();
-
-            var csv = GetCsv($"https://www.google.com/url?q={GoogleSheet.Replace("pubhtml#", "pub")}?output%3Dcsv");
-            csv.RemoveAll(c => c == string.Empty);
             var cards = GetCardsFile();
+            var csv = GetCsv($"https://www.google.com/url?q={_googleSheet.Replace("pubhtml#", "pub")}?output%3Dcsv",
+                cards.CardsWithComma());
+            csv.RemoveAll(c => c == string.Empty);
+            
             var reviewerDict = new Dictionary<ReviewContributor, int>()
             {
                 {ReviewContributor.Lolaman, -3},
@@ -48,7 +47,6 @@ namespace LimitedPower.Core.RatingSources.InfiniteMythicEdition
                     name = name.Substring(0, name.IndexOf("/", StringComparison.Ordinal) - 1);
                 }
 
-                if (name == "Undying Malice") name = "Undying Malace";
                 var pos = csv.IndexOf(name);
 
                 var ratingName = card.Name;
@@ -70,16 +68,6 @@ namespace LimitedPower.Core.RatingSources.InfiniteMythicEdition
             }
 
             return result;
-        }
-
-        protected override string ModifySearchTerm(Card card)
-        {
-            if (card.Name.Contains("//"))
-            {
-                return card.Name.Substring(0, card.Name.IndexOf("//", StringComparison.Ordinal) - 1);
-            }
-
-            return base.ModifySearchTerm(card);
         }
     }
 }
