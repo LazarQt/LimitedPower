@@ -87,7 +87,7 @@ namespace LimitedPower.Core.RatingSources
             foreach (var card in cards)
             {
                 // setup search term with levenshtein algorithm 
-                var distanceIndex = rawRatings.Select(c => c.CardName).Distinct().DistanceIndex(card.Name);
+                var distanceIndex = rawRatings.Select(c => c.CardName).DistanceIndex(card.Name);
                 var searchTerm = rawRatings[distanceIndex].CardName;
 
                 var cardRatings = rawRatings.Where(c => c.CardName.ToLower() == searchTerm.ToLower()).ToList();

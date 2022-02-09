@@ -5,7 +5,7 @@ namespace LimitedPower.Core.RatingSources.Deathsie
 {
     public class DeathsieGenerator : RatingGeneratorBase<string>
     {
-        protected override ReviewContributor[] ReviewContributors { get; set; } = { ReviewContributor.Deathsie };
+        protected override ReviewContributor[] ReviewContributors { get; set; } = {ReviewContributor.Deathsie};
         private readonly string _googleSheet;
 
         public DeathsieGenerator(string basePath, string set, Dictionary<string, string> cardNameSubstitutions,
@@ -21,7 +21,6 @@ namespace LimitedPower.Core.RatingSources.Deathsie
         {
             var result = new List<RawRating<string>>();
             var cards = GetCardsFile();
-
             var csv = GetCsv($"https://www.google.com/url?q={_googleSheet.Replace("pubhtml#", "pub")}?output%3Dcsv",
                 cards.CardsWithComma());
             csv.RemoveAll(c => c == string.Empty);
@@ -30,15 +29,13 @@ namespace LimitedPower.Core.RatingSources.Deathsie
             {
                 var cardName = card.Name;
 
-
                 var pos = csv.DistanceIndex(cardName);
 
                 var rawValuePos = pos - 2;
                 if (!int.TryParse(csv[pos - 1], out _))
                 {
-                    rawValuePos = rawValuePos + 1;
+                    rawValuePos += 1;
                 }
-
 
                 result.Add(new RawRating<string>
                 {
@@ -46,7 +43,6 @@ namespace LimitedPower.Core.RatingSources.Deathsie
                     RawValue = csv[rawValuePos],
                     CardName = cardName
                 });
-
             }
 
             return result;

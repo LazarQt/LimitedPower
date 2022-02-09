@@ -20,7 +20,6 @@ namespace LimitedPower.Core
         DraftaholicsAnonymous,
         DraftSim,
         Lolaman,
-        Ham,
         Scottynada,
         Deathsie
         // ReSharper restore InconsistentNaming

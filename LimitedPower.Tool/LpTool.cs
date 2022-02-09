@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Reflection;
 using ImageMagick;
 using LimitedPower.Core;
 using LimitedPower.Core.RatingSources.Deathsie;
@@ -88,13 +87,13 @@ namespace LimitedPower.Tool
                 switch (p.GeneratorName)
                 {
                     case nameof(DraftaholicsAnonymousGenerator):
-                        //new DraftaholicsAnonymousGenerator(_rootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions).Process();
+                        new DraftaholicsAnonymousGenerator(_rootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions).Process();
                         break;
                     case nameof(DraftSimGenerator):
-                        //new DraftSimGenerator(_rootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
+                        new DraftSimGenerator(_rootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
                         break;
                     case nameof(InfiniteMythicEditionGenerator):
-                        //new InfiniteMythicEditionGenerator(_rootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
+                        new InfiniteMythicEditionGenerator(_rootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
                         break;
                     case nameof(DeathsieGenerator):
                         new DeathsieGenerator(_rootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();

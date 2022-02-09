@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using LimitedPower.Core.Extensions;
 
 namespace LimitedPower.Core.RatingSources.InfiniteMythicEdition
 {
     public class InfiniteMythicEditionGenerator : RatingGeneratorBase<string>
     {
-        protected override ReviewContributor[] ReviewContributors { get; set; } = { ReviewContributor.Lolaman, ReviewContributor.Ham, ReviewContributor.Scottynada };
+        protected override ReviewContributor[] ReviewContributors { get; set; } =
+            {ReviewContributor.Lolaman, ReviewContributor.Scottynada};
 
         private readonly string _googleSheet;
 
@@ -30,31 +30,15 @@ namespace LimitedPower.Core.RatingSources.InfiniteMythicEdition
             
             var reviewerDict = new Dictionary<ReviewContributor, int>()
             {
-                {ReviewContributor.Lolaman, -3},
-                {ReviewContributor.Ham, -2},
+                {ReviewContributor.Lolaman, -2},
                 {ReviewContributor.Scottynada, -1}
             };
+
             foreach (var card in cards)
             {
-                if (card.TypeLine.ToLower().Contains("basic")) continue;
-                var name = card.Name;
-                if (name.Contains(","))
-                {
-                    name = name.Substring(0, name.IndexOf(",", StringComparison.Ordinal));
-                }
-                if (name.Contains("/"))
-                {
-                    name = name.Substring(0, name.IndexOf("/", StringComparison.Ordinal) - 1);
-                }
+                var cardName = card.Name;
 
-                var pos = csv.IndexOf(name);
-
-                var ratingName = card.Name;
-                if (ratingName.Contains("/"))
-                {
-                    ratingName = ratingName.Substring(0, ratingName.IndexOf("/", StringComparison.Ordinal) - 1);
-                }
-
+                var pos = csv.DistanceIndex(cardName);
 
                 foreach (var r in reviewerDict)
                 {
@@ -62,7 +46,7 @@ namespace LimitedPower.Core.RatingSources.InfiniteMythicEdition
                     {
                         ReviewContributor = r.Key,
                         RawValue = csv[pos + r.Value],
-                        CardName = ratingName
+                        CardName = cardName
                     });
                 }
             }
