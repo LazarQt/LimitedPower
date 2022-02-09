@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using ImageMagick;
 using LimitedPower.Core;
@@ -17,7 +16,7 @@ namespace LimitedPower.Tool
     public class LpTool
     {
         // fixed values
-        private static string _rootPath = ConfigurationManager.AppSettings[Const.Settings.OutPath];
+        private static string _rootPath = Const.Settings.SavePath;
 
         public void Run(string input)
         {
@@ -27,7 +26,7 @@ namespace LimitedPower.Tool
             Console.WriteLine();
 
             // load config
-            var lpConfigs = JsonConvert.DeserializeObject<List<LimitedPowerConfig>>(File.ReadAllText(ConfigurationManager.AppSettings[Const.Settings.SetConfig]));
+            var lpConfigs = JsonConvert.DeserializeObject<List<LimitedPowerConfig>>(File.ReadAllText(Const.Settings.SetConfiguration));
 
             // process commands
             if (string.IsNullOrEmpty(input)) return;

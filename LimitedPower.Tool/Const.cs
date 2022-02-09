@@ -4,8 +4,8 @@
     {
         public static class Settings
         {
-            public const string OutPath = "outpath";
-            public const string SetConfig = "setconfig";
+            public const string SavePath = "";
+            public const string SetConfiguration = "lpconfig.json";
         }
     }
 }
