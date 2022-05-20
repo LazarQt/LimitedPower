@@ -1,6 +1,6 @@
 ﻿namespace LimitedPower.Core
 {
-    public static class CardConst
+    public static class CardAttribute
     {
         public static string Basic = "Basic";
     }

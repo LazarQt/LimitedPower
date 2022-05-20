@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using LimitedPower.Core;
+using System.Collections.Generic;
 using System.Linq;
-using LimitedPower.Core;
 
 namespace LimitedPower.Tool
 {

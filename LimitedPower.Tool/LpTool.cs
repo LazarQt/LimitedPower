@@ -1,14 +1,15 @@
-﻿using System;
+﻿using ImageMagick;
+using LimitedPower.Core;
+using LimitedPower.Core.RatingSources;
+using LimitedPower.Remote;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using ImageMagick;
-using LimitedPower.Core;
 using LimitedPower.Core.RatingSources.Deathsie;
 using LimitedPower.Core.RatingSources.DraftaholicsAnonymous;
 using LimitedPower.Core.RatingSources.DraftSim;
 using LimitedPower.Core.RatingSources.InfiniteMythicEdition;
-using LimitedPower.Remote;
-using Newtonsoft.Json;
 
 namespace LimitedPower.Tool
 {
@@ -85,17 +86,20 @@ namespace LimitedPower.Tool
             {
                 switch (p.GeneratorName)
                 {
-                    case nameof(DraftaholicsAnonymousGenerator):
-                        new DraftaholicsAnonymousGenerator(_rootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions).Process();
-                        break;
-                    case nameof(DraftSimGenerator):
-                        new DraftSimGenerator(_rootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
-                        break;
-                    case nameof(InfiniteMythicEditionGenerator):
-                        new InfiniteMythicEditionGenerator(_rootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
-                        break;
-                    case nameof(DeathsieGenerator):
-                        new DeathsieGenerator(_rootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
+                    //case nameof(DraftaholicsAnonymousGenerator):
+                    //    new DraftaholicsAnonymousGenerator(_rootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions).Process();
+                    //    break;
+                    //case nameof(DraftSimGenerator):
+                    //    new DraftSimGenerator(_rootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
+                    //    break;
+                    //case nameof(InfiniteMythicEditionGenerator):
+                    //    new InfiniteMythicEditionGenerator(_rootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
+                    //    break;
+                    //case nameof(DeathsieGenerator):
+                    //    new DeathsieGenerator(_rootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
+                    //    break;
+                    case nameof(MtgdsGenerator):
+                        new MtgdsGenerator(_rootPath, lpConfig.Set.PrimarySet(), p.CardNameSubstitutions, p.Args).Process();
                         break;
                 }
             }

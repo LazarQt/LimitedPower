@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using LimitedPower.Remote.Model;
+﻿using LimitedPower.Remote.Model;
 using Newtonsoft.Json;
 using RestSharp;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace LimitedPower.Remote
 {
@@ -17,13 +17,11 @@ namespace LimitedPower.Remote
             Parameters = parameters ?? new Dictionary<string, object>();
         }
 
-        private CardsSearch PerformCardsSearch(string setSearchUri)
-        {
-            var cardsSearchRequest = new RestRequest(new Uri(setSearchUri).PathAndQuery, Method.GET);
-            IRestResponse cardsSearchResponse = _client.Execute(cardsSearchRequest);
-            return JsonConvert.DeserializeObject<CardsSearch>(cardsSearchResponse.Content);
-        }
-
+        /// <summary>
+        /// Get Scryfall cards for given set of mtg sets
+        /// </summary>
+        /// <param name="setCodes">List of sets to get cards from</param>
+        /// <returns>Scryfall card list</returns>
         public List<ScryfallCard> GetSourceCards(string[] setCodes)
         {
             var result = new List<ScryfallCard>();
@@ -31,7 +29,6 @@ namespace LimitedPower.Remote
             {
                 result.AddRange(GetSourceCards(setcode));
             }
-
             return result;
         }
 
@@ -41,24 +38,23 @@ namespace LimitedPower.Remote
             var setRequest = new RestRequest($"sets/{setCode}", Method.GET);
             IRestResponse setResponse = _client.Execute(setRequest);
             var set = JsonConvert.DeserializeObject<Set>(setResponse.Content);
-
-            if (set == null)
-            {
-                throw new Exception($"could not get cards for set {setCode}");
-            }
+            if (set == null) throw new Exception($"could not get cards for set {setCode}");
 
             // get card search from set 
             var cardsSearch = PerformCardsSearch(set.SearchUri);
 
+            // populate results
             var result = new List<ScryfallCard>();
-
             while (cardsSearch != null)
             {
                 foreach (var sourceCard in cardsSearch.Data)
                 {
                     var printedSize = set.PrintedSize;
                     if (printedSize == 0 && set.Digital) printedSize = set.CardCount; // fallback for digital only sets
-                    if (Parameters.ContainsKey("PrintedSize")) printedSize = Convert.ToInt32(Parameters["PrintedSize"]);
+
+                    // special case if no set count is given (sometimes error on scryfall side)
+                    if (Parameters.ContainsKey(Argument.PrintedSize)) printedSize = Convert.ToInt32(Parameters[Argument.PrintedSize]);
+
                     if (set.Digital && printedSize == 0) printedSize = set.CardCount;
                     if (printedSize == 0) printedSize = set.CardCount;
                     if (!sourceCard.Booster || result.Any(o => o.Name == sourceCard.Name) || Convert.ToInt32(sourceCard.CollectorNumber) > printedSize)
@@ -67,11 +63,17 @@ namespace LimitedPower.Remote
                     }
                     result.Add(sourceCard);
                 }
-
+                // recursive search 
                 cardsSearch = cardsSearch.HasMore ? PerformCardsSearch(cardsSearch.NextPage) : null;
             }
 
             return result;
+        }
+
+        private CardsSearch PerformCardsSearch(string setSearchUri)
+        {
+            var cardsSearchResponse = _client.Execute(new RestRequest(new Uri(setSearchUri).PathAndQuery, Method.GET));
+            return JsonConvert.DeserializeObject<CardsSearch>(cardsSearchResponse.Content);
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using LimitedPower.Core.Extensions;
+﻿using LimitedPower.Core.Extensions;
+using System.Collections.Generic;
 
 namespace LimitedPower.Core.RatingSources.InfiniteMythicEdition
 {
@@ -27,7 +27,7 @@ namespace LimitedPower.Core.RatingSources.InfiniteMythicEdition
             var csv = GetCsv($"https://www.google.com/url?q={_googleSheet.Replace("pubhtml#", "pub")}?output%3Dcsv",
                 cards.CardsWithComma());
             csv.RemoveAll(c => c == string.Empty);
-            
+
             var reviewerDict = new Dictionary<ReviewContributor, int>()
             {
                 {ReviewContributor.Lolaman, -2},

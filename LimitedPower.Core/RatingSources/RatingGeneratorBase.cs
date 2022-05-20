@@ -1,10 +1,10 @@
-﻿using System;
+﻿using LimitedPower.Core.Extensions;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using LimitedPower.Core.Extensions;
-using Newtonsoft.Json;
 
 namespace LimitedPower.Core.RatingSources
 {
@@ -78,7 +78,7 @@ namespace LimitedPower.Core.RatingSources
 
             // get raw ratings
             var rawRatings = GetRawRatings().OrderBy(o => o.CardName).ToList();
-            
+
             // trim excess whitespace1
             rawRatings.ForEach(x => x.CardName = SanitizeReviewCard(x.CardName));
 

@@ -6,7 +6,19 @@ namespace LimitedPower.Core.Extensions
 {
     public static class LevenshteinDistance
     {
-        public static int ComputeDistance(this string s, string t)
+        /// <summary>
+        /// Get distance for a term in input based on Levenshtein Distance algorithm
+        /// </summary>
+        /// <param name="input">Input to be searched in</param>
+        /// <param name="term">Term to search for</param>
+        /// <returns>Count how far term is away from being identical to input</returns>
+        public static int DistanceIndex(this IEnumerable<string> input, string term)
+        {
+            var distances = input.ToList().Select(s => s.ComputeDistance(term)).ToList();
+            return distances.IndexOf(distances.Min());
+        }
+
+        private static int ComputeDistance(this string s, string t)
         {
             // source: https://www.dotnetperls.com/levenshtein
 
@@ -48,13 +60,6 @@ namespace LimitedPower.Core.Extensions
             }
             // Return cost.
             return d[n, m];
-        }
-
-        public static int DistanceIndex(this IEnumerable<string> input, string term)
-        {
-            var list = input.ToList();
-            var distances = list.Select(s => s.ComputeDistance(term)).ToList();
-            return distances.ToList().IndexOf(distances.Min());
         }
     }
 }

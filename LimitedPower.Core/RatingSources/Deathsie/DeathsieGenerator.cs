@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using LimitedPower.Core.Extensions;
+﻿using LimitedPower.Core.Extensions;
+using System.Collections.Generic;
 
 namespace LimitedPower.Core.RatingSources.Deathsie
 {
     public class DeathsieGenerator : RatingGeneratorBase<string>
     {
-        protected override ReviewContributor[] ReviewContributors { get; set; } = {ReviewContributor.Deathsie};
+        protected override ReviewContributor[] ReviewContributors { get; set; } = { ReviewContributor.Deathsie };
         private readonly string _googleSheet;
 
         public DeathsieGenerator(string basePath, string set, Dictionary<string, string> cardNameSubstitutions,
@@ -31,7 +31,7 @@ namespace LimitedPower.Core.RatingSources.Deathsie
 
                 var pos = csv.DistanceIndex(cardName);
 
-                var rawValuePos = pos - 2;
+                var rawValuePos = pos + 5;
                 if (!int.TryParse(csv[pos - 1], out _))
                 {
                     rawValuePos += 1;

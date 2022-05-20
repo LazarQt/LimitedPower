@@ -21,7 +21,8 @@ namespace LimitedPower.Core
         DraftSim,
         Lolaman,
         Scottynada,
-        Deathsie
+        Deathsie,
+        MtgDs
         // ReSharper restore InconsistentNaming
     }
 }
