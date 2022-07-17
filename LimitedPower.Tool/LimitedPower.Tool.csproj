@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LimitedPower.Core\LimitedPower.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="credentials.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
