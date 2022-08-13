@@ -1,3 +1,3 @@
 # LimitedPower
 
-fight me
+This project is no longer being maintained.
